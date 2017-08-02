@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'blog/css/detail.css' %}">
+<div id="main">
+    <div id="detail-title">
+        <ul id="single-nav">
+            <li><a href="{% url 'blog:index' %}">首页</a></li>
+            <li>&gt;</li>
+            <li>
+                <ul class="post-categories">
+                    <li><a href="" title=""
+                            rel="category">{{ article.category.name }}</a>
+                    </li>
+                </ul>
+            </li>
+            <li>&gt;</li>
+            <li class="title-active"><a href="{% url 'blog:detail' article.pk %}"
+                                        rel="bookmark">{{ article.title }}</a>
+                <input type="hidden" id="hid_article_id" value="{{ article.id }}">
+            </li>
+        </ul>
+    </div>
+    <div class="post">
+        <div class="post-content">
+            <h3>
+                <a href="#" class="title">{{ article.title }}</a>
+            </h3>
+            <div class="date-read">
+                <i class="icon-sprofile"></i><span
+                    class="date">{{ article.user.username }}</span>
+                <i class="icon-date"></i><span
+                    class="date">{{ article.last_modified_time|date:"Y年n月d日" }}</span>
+            </div>
+            <div class="post-bd">
+                <p>{{ article.body | safe | linebreaks}}</p>
+            </div>
+        </div>
+        <div class="post-ft">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>附件名</th>
+                        <th>下载次数</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="">{{ article.attachment }}</a></td>
+                        <td><span class="hovered"><a href="">下载</a></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% include 'blog/comment.html' %}
+</div>
+
+{% endblock %}

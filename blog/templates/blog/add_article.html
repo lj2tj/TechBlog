@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/forms.css' %}">
+<script type="text/javascript" src="{% static 'lib/js/tiny_mce/tiny_mce.js' %}"></script>
+
+<script type="text/javascript">
+    tinyMCE.init({
+        mode: "textareas",
+        theme: "advanced",
+    });
+
+    function CheckInfo()
+    {
+        var title = $("#blog_title").val();
+        if(title.length <= 0){
+            $("#blog_title").focus();
+            showGlobalMessage("请填写标题");
+            return false;
+        }
+
+        var body = $("#blog_body").val();
+        if(body.length <= 0){
+            $("#blog_body").focus();
+            showGlobalMessage("请填写内容");
+            return false;
+        }
+    }
+</script>
+
+<div id="main">
+    <h1>增加 文章</h1>
+    <div>
+        <form name="addBlog" method="POST" enctype="multipart/form-data" action="{% url 'blog:AddArticle' %}" onsubmit="return CheckInfo()">
+            {% csrf_token %}
+            <div>
+                <fieldset class="module aligned ">
+                    <div class="form-row field-title">
+                        <div>
+                            <label class="required" for="blog_title">标题:</label>
+                            <input class="vTextField" id="blog_title" maxlength="70" name="title" type="text">
+                        </div>
+                    </div>
+                    <div class="form-row field-body">
+                        <div>
+                            <label class="required" for="blog_body">正文:</label>
+                            <textarea class="vLargeTextField tinymce" cols="40" id="blog_body" name="body" rows="10" ></textarea>
+                        </div>
+                    </div>
+                    <div class="form-row field-status">
+                        <div>
+                            <label class="required" for="blog_status">文章状态:</label>
+                            <select id="blog_status" name="status">
+                                <option value="" selected="selected">---------</option>
+                                <option value="d">草稿</option>
+                                <option value="p">发布</option>
+                            </select> 
+                        </div>
+                    </div>
+                    <div class="form-row field-topped">
+                        <div class="checkbox-row">
+                            <input id="blog_topped" name="topped" type="checkbox"><label class="vCheckboxLabel" for="blog_topped">置顶</label>
+                        </div>
+                    </div>
+                    <div class="form-row field-attachment">
+                        <div>
+                            <label class="required" for="blog_attachment">附件:</label> 
+                            <input type="file" id="blog_attachment" name="attachment" />
+                        </div>
+                    </div>
+                    <div class="form-row field-category">
+                        <div>
+                            <label class="required" for="blog_category">分类:</label>               
+                            <div class="related-widget-wrapper">
+                                <select id="blog_category" name="category">
+                                    <option value="" selected="selected">---------</option>
+                                    {% for category in category_list %}
+                                    <option value="{{ category.id }}">{{ category.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row field-tag">
+                        <div>
+                            <label for="blog_tag">标签:</label>                  
+                            <div class="related-widget-wrapper">
+                                <select id="blog_tag" name="tag">
+                                    <option value="" selected="selected">---------</option>
+                                    {% for tag in tag_list %}
+                                    <option value="{{ tag.id }}">{{ tag.name }}</option>
+                                    {% endfor %}
+                                </select> 
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="submit-row">
+                    <input type="submit" value="保存" class="default" name="_save">
+                    <p class="deletelink-box"><a href="#" class="deletelink">删除</a></p>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,277 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'blog/css/user_center.css' %}">
+
+<script type="text/javascript">
+
+    // Press Enter in email textbox will trigger save event.
+    function trySaveEmail(){
+        var lKeyCode = (navigator.appname=="Netscape")?event.which:window.event.keyCode;
+        if (lKeyCode == 13){
+            saveEmail();
+        }
+    }
+
+    function saveEmail(){
+        var newEmail = $('#email').val();
+        if(newEmail.indexOf('@') <= 0){
+            $('#email').focus();
+            $('#emailError').show();
+            $('#emailMsg').text("邮箱地址不正确");
+            return false;
+        }
+        
+        $.get("/UpdateUserInfo", { 'email' : newEmail }, function(result){
+                if(result != "1"){
+                    $('#emailError').show();
+                    $("#emailMsg").text(result);
+                }else{
+                    $('#EmailDisplay b').text(newEmail);
+                    $('#EmailInput').hide();
+                    $('#EmailDisplay').show();
+                }
+            });
+    }
+
+    function updateEmail(){
+        $('#email').val($('#EmailDisplay b').text())
+        $('#EmailInput').show();
+        $('#EmailDisplay').hide();
+    }
+</script>
+
+<div id="main">
+
+<div class="personalinfo">
+	<div class="briefleftbox">
+    	<div class="briefpic"><span><img src="{% static 'blog/img/default_user_big.jpg' %}"></span></div>
+        <div class="briefwit">
+        	<h4>
+			{{ request.user.username }}			<span class="{{ request.userprofile.website_level }}"></span>
+			</h4>
+            <div>
+                <a class="btn btn-success" href="{% url 'blog:NewArticle' %}">发布新文章</a>
+            </div>
+        </div>
+    </div>
+    <em></em>
+    <div class="integralbox integralboxtop">
+    	<ul> 
+        	<li>我的邮箱：
+                <div id="EmailInput" {% if base_info.email = "" %} 
+                style="display: block;"
+                {% else %}
+                style="display: none;"
+                {% endif %}
+                >
+                    <input id="email" type="email" placeholder="sample@test.com" onkeydown="trySaveEmail()" value="">
+                    <a class="btn btn-danger btn-small" onclick="saveEmail()">保存</a>
+                    <div class="tipsboxalert" id="emailError" style="display: none;">
+                        <p id="emailMsg"></p>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div id="EmailDisplay" {% if base_info.email = "" %} 
+                style="display: none;"
+                {% else %}
+                style="display: block;"
+                {% endif %}>
+                    <b>{{ base_info.email }}</b>
+                    <a class="btn btn-danger btn-small" onclick="updateEmail()">修改</a>
+                </div>
+            </li>
+            <li>最近登录：<b>{{ base_info.last_login }}</b></li>
+            <li>我的消费：<b>{{ base_info }}</b></li>
+            <li>我的头衔：<i>{{profile.website_level.description}}</i></li>
+        </ul>
+    </div>
+    <em></em>
+    <div class="integralbox integralboxtop">
+    	<ul>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<div class="personal">
+    <div class="personalleft" id="personalleft">
+        <div class="listbox nav nav-tabs">
+            <a href="#basic" data-toggle="tab">基本信息</a>
+            <a href="#upload" data-toggle="tab">我的上传：{{ uploaded_files | length }} 篇</a>
+            <a href="#purchase" data-toggle="tab">我的下载：{{ downloaded_files | length }} 篇</a>
+        </div>
+    </div>
+    <div class="personalright tab-content" id="personalright">
+        <div class="tab-pane fade" id="basic">
+            <table class="table table-responsive" id="tblUserProfile">
+                <tbody>
+                    <tr>
+                        <td>电话</td>
+                        <td>
+                            <span id="staticMobilePhone">{{profile.mobile_phone}}</span>
+                            <edit style="display:none;">
+                                <input type="text" id="editMobilePhone" name="editMobilePhone" value="{{profile.mobile_phone}}" />
+                            </edit>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>住址</td>
+                        <td>
+                            <span id="staticLocation">{{profile.location}}</span>
+                            <edit style="display:none;">
+                                <input type="text" id="editLocation" name="editLocation" value="{{profile.location}}" />
+                            </edit>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span onclick="editUserProfile()" class="button" style="float:left;">编辑</span>
+                            <edit style="display:none;">
+                                <input type="button" onclick="saveUserProfile()" class="button" style="float:left;" value="保存" />
+                            </edit>
+                        </td>
+                        <td>
+                            <edit style="display:none;">
+                                <input type="button" onclick="cancelEditUserProfile()" class="button" style="float:left;" value="取消" />
+                            </edit>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="upload">
+            <table id="myUploadedArticles" class="table-responsive"></table>
+        </div>
+        <div class="tab-pane fade" id="purchase">
+            <table id="myPurchasedArticles" class="table-responsive"></table>
+        </div>
+        <div class="tab-pane fade" id="like">
+            <table id="myLikedArticles" class="table-responsive"></table>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+</div>
+
+<script type="text/javascript">
+var columns = [{
+                field: 'title',
+                searchable: true,
+                sortable: true,
+                title: '标题'
+            }, {
+                field: 'created_time',
+                sortable: true,
+                title: '创建时间'
+            }, {
+                field: 'status',
+                sortable: true,
+                title: '文章状态'
+            }, {
+                field: 'views',
+                sortable: true,
+                title: '浏览量'
+            }, {
+                field: 'likes',
+                sortable: true,
+                title: '点赞数'
+            }, {
+                field: 'price',
+                sortable: true,
+                title: '价格'
+            }, {
+                field: 'category',
+                title: '分类'
+            }, {
+                field: 'tag',
+                title: '标签'
+            },];
+
+var purchased_columns = [{
+            field: 'article__title',
+            searchable: true,
+            sortable: true,
+            title: '标题'
+        }, {
+            field: 'origin_price',
+            sortable: true,
+            title: '原价'
+        }, {
+            field: 'deal_price',
+            sortable: true,
+            title: '成交价格'
+        }, {
+            field: 'download_time',
+            sortable: true,
+            title: '购买时间'
+        },];
+
+var liked_columns = [{
+                field: 'article__title',
+                searchable: true,
+                sortable: true,
+                title: '标题'
+            }, {
+                field: 'article__created_time',
+                sortable: true,
+                title: '创建时间'
+            }, {
+                field: 'article__price',
+                sortable: true,
+                title: '价格'
+            }, {
+                field: 'article__category',
+                title: '分类'
+            }, {
+                field: 'article__tag',
+                title: '标签'
+            },];
+
+$(function () {
+    showArticles("#myUploadedArticles", "/GetArticles/upload", "id", columns, "/EditArticle/");
+    showArticles("#myPurchasedArticles", "/GetArticles/purchase", "article", purchased_columns, "/article/");
+    showArticles("#myLikedArticles", "/GetArticles/like", "article__id", liked_columns, "/article/");
+});
+
+function editUserProfile(){
+    $("#tblUserProfile span").hide();
+    $("#tblUserProfile edit").show();
+}
+
+function cancelEditUserProfile(){
+    $("#tblUserProfile edit").hide();
+    $("#tblUserProfile span").show();
+}
+
+function saveUserProfile(){
+    var mobile_phone = $('#editMobilePhone').val();
+    var editPosition = $('#editPosition').val();
+    var editJobTitle = $('#editJobTitle').val();
+    var editLocation = $('#editLocation').val();
+    
+    $.get("/UpdateUserInfo", 
+        { 
+            "mobile_phone" : mobile_phone,
+            "position" : editPosition,
+            "jobTitle" : editJobTitle,
+            "location" : editLocation
+        }, function(result){
+            if(result != "1"){
+                showGlobalMessage("更新信息失败" + result)
+            }else{
+                $('#staticMobilePhone').text(mobile_phone);
+                $('#staticPosition').text(editPosition);
+                $('#staticJobTitle').text(editJobTitle);
+                $('#staticLocation').text(editLocation);
+                cancelEditUserProfile();
+            }
+        });
+}
+
+</script>
+
+{% endblock %}
+

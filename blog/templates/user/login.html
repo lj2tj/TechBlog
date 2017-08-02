@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+<script type="text/javascript">
+function keyDown(){
+    var value= event.keyCode;
+    if(value == 13){
+        document.forms["loginForm"].submit();
+    }
+}
+</script>
+
+
+{% block content %}
+<div id="main">
+    <link rel="stylesheet" href="{% static 'blog/css/login.css' %}">
+    <div class="center" style="height: 439px;" onkeydown="keyDown()">
+        <div class="pc-centerbox">
+            <div class="pc-cenboxleft">
+                <img src="{% static 'blog/img/pc-leftppic.png' %}">
+            </div>
+            <div class="loginbox">
+                <form name="loginForm" method="post" action="{% url 'blog:login' %}">
+                    {% csrf_token %}
+                    <div class="userphoto" id="userphoto"><img src="{% static 'blog/img/user_default.svg' %}"></div>
+                    <div class="needtext">
+                        <div class="input-id">
+                            <span id="idnumber"></span>
+                            <input type="text" id="memUserId" name="memUserId" value="" placeholder="手机/邮箱">
+                            <div class="clear"></div>
+                            <div class="tipsboxalert" id="userError" style="display: none;">
+                                <em></em>
+                                <p id="userMsg">用户名不能为空</p>
+                            </div>
+                        </div>
+                        <div class="input-pas">
+                            <span id="idpass"></span>
+                            <input type="password" id="memPassword" name="memPassword" placeholder="密码">
+                            <input type="hidden" id="jiamiPassword" name="jiamiPassword">
+                            <div class="clear"></div>
+                            <div class="tipsboxalert" id="pswError" style="display: none;">
+                                <em></em>
+                                <p id="pswMsg">密码不能为空</p>
+                            </div>
+                        </div>
+                        <div class="helpbtn">
+                            <div class="remeberme">
+                                <input type="checkbox" id="remeber" name="remember" />
+                                <span class="alowedme">记住我</span>
+                                <span class="clickspan"></span>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <input type="submit" value="登录" class="tjbtn-login">
+                    </div>
+                    <div class="clear"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}

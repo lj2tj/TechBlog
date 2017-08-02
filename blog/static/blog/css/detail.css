@@ -1,0 +1,228 @@
+#detail-title {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 35px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+#detail-title #single-nav {
+    margin-left: 20px;
+    height: 58px;
+}
+
+#detail-title li {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    font-size: 14px;
+    color: #555;
+    line-height: 58px;
+    padding: 0 3px;
+    vertical-align: top;
+}
+
+#detail-title li a {
+    font-size: 15px;
+    color: #999;
+    display: block;
+}
+
+#detail-title li a:hover {
+    color: #555;
+    cursor: pointer;
+}
+
+#detail-title .title-active a {
+    color: #555;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 500px;
+}
+
+.post {
+    font-family: Arial,"Microsoft YaHei","微软雅黑";
+    font-size: 13px;
+    line-height: 1.54;
+    padding-top: 0;
+    position: relative;
+}
+
+.post .post-bd {
+    min-height: 250px;
+    word-break: break-word;
+    border-top: 1px solid #a2a2a2;
+}
+
+.post .post-content {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.post .title {
+    color: #005CD9;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.post-label{
+    float: left;
+    width: 80px;
+    font-weight: bold;
+}
+
+.post-value{
+    float: left;
+}
+
+.post-kw{
+    height:auto;
+    text-align: left;
+    color: #333;
+}
+
+.date-read {
+    margin: 10px 0px;
+}
+
+.icon-date {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    width: 14px;
+    height: 13px;
+    margin-right: 7px;
+    background: url(../img/date.png) no-repeat;
+}
+
+.icon-money {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    width: 14px;
+    height: 13px;
+    margin-right: 7px;
+    background: url(../img/smoney.gif) no-repeat;
+}
+
+.icon-unlike {
+    cursor: pointer;
+    display: inline-block;
+    *display: inline;
+    *zoom: 0.8;
+    zoom: 0.8;
+    width: 20px;
+    height: 20px;
+    margin-right: 7px;
+    background: url(../img/background1.png)  -16px -35px no-repeat;
+}
+
+.icon-like {
+    display: inline-block;
+    *display: inline;
+    *zoom: 0.8;
+    zoom: 0.8;
+    width: 20px;
+    height: 20px;
+    margin-right: 7px;
+    background: url(../img/background1.png)  -16px -82px no-repeat;
+}
+
+.icon-sprofile{
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    width: 14px;
+    height: 13px;
+    margin-right: 7px;
+    background: url(../img/sprofile.jpg) no-repeat;
+}
+
+.date {
+    color: #999;
+    margin-right: 12px;
+}
+
+.title {
+    margin: 27px 0 15px;
+    font-size: 20px;
+    color: #555;
+}
+
+.post-ft {
+    margin-top: 28px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 21px 0 21px 0;
+    border-top: 1px solid #a2a2a2;
+    color: #999;
+    font-size: 14px;
+}
+
+.post-ft a:hover {
+    color: #3e8fff;
+}
+
+
+/*comment*/
+.comment {
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 21px 0 21px 0;
+    border-top: 1px solid #a2a2a2;
+    font-size: 14px;
+}
+
+.comment .head {
+    font-size: larger;
+}
+
+.comment textarea {
+    width: 100%;
+    height: 100px;
+    resize: vertical;
+}
+
+.comment .com-button {
+    margin-top: 15px;
+    width: 100px;
+    padding: 5px;
+    background-color: red;
+    border: none;
+    color: white;
+    float: right;
+    margin-bottom: 20px;
+}
+
+.comment .comment-count {
+    clear: both;
+}
+
+.main-content .user-avatar {
+    width: 50px;
+    height: 50px;
+    float: left;
+    margin-right: 20px;
+}
+
+.main-content .user-nickname {
+    vertical-align: top;
+    color: blue;
+    margin-right: 15px;
+}
+
+.main-content .time {
+    vertical-align: top;
+    color: blue;
+}
+
+.main-content a {
+    float: right;
+}
+
+.main-content .comment-content {
+    margin-top: 10px;
+    font-size: 16px;
+}
