@@ -14,7 +14,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, FormView
 from blog.models import UserProfile, BlogComment, AppSettings
-from blog.models import Article, Attachment, Category, Tag
+from blog.models import Article, Category, Tag
 from blog.views import WebSiteInfo, GetWebSiteInfo
 from django.http import StreamingHttpResponse, HttpResponse
 
@@ -136,13 +136,13 @@ def UserCenter(request):
     return render(request, "user/usercenter.html", dic)
 
 
-def Download(request, attachment):
+def Download(request, article_id):
     """
     Download a document.
     """
     
-    if not attachment:
-        return HttpResponse('No such file.')
+    if not article_id:
+        return HttpResponse('Invalid file.')
 
     upload_file_path = settings.MEDIA_ROOT
 
@@ -150,12 +150,16 @@ def Download(request, attachment):
         return HttpResponse('System setting error, upload_file_path is empty.')
 
     article = Article.objects.filter(id=article_id)[0]
-    #Save user purchase article informantion.
 
-    file_full_name = os.path.join(upload_file_path, unicode(attachment))
+    article.download += 1
+    article.save()
+
+    file_full_name = os.path.join(upload_file_path, unicode(article.attachment))
+    print file_full_name
+
     response = StreamingHttpResponse(file_iterator(file_full_name))
     response['Content-Type'] = 'application/octet-stream'
-    response['Content-Disposition'] = 'attachment;filename="{0}"'.format(the_file.name)
+    response['Content-Disposition'] = 'attachment;filename="{0}"'.format(article.attachment)
     return response
 
 

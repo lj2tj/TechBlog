@@ -42,12 +42,14 @@
                     <tr>
                         <th>附件名</th>
                         <th>下载次数</th>
+                        <th>下载</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><a href="">{{ article.attachment }}</a></td>
-                        <td><span class="hovered"><a href="">下载</a></span></td>
+                        <td>{{ article.download }}</td>
+                        <td><span class="hovered"><a href="{% url 'blog:download' article.id %}">下载</a></span></td>
                     </tr>
                 </tbody>
             </table>

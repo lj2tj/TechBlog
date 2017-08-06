@@ -4,7 +4,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from blog.models import Article, Category, Tag, Attachment, AppSettings, WebSiteAbout
+from blog.models import Article, Category, Tag, AppSettings, WebSiteAbout
 from blog.modelAdmin import CategoryAdmin, SettingsAdmin, WebSiteAboutAdmin
 
 admin.site.register(Article)

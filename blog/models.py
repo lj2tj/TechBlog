@@ -77,7 +77,7 @@ class Article(models.Model):
     last_modified_time = models.DateTimeField('修改时间', auto_now=True)
     status = models.CharField('文章状态', max_length=1, choices=STATUS_CHOICES)
     views = models.PositiveIntegerField('浏览量', default=0, editable=False)
-    likes = models.PositiveIntegerField('点赞数', default=0, editable=False)
+    download = models.PositiveIntegerField('下载次数', default=0, editable=False)
     topped = models.BooleanField('置顶', default=False)
     attachment = models.FileField(verbose_name='附件', upload_to='Articles', \
         storage=None, null=True, blank=True)
@@ -104,23 +104,6 @@ class Article(models.Model):
         """
 
         return reverse('blog:detail', kwargs={'article_id': self.pk})
-
-class Attachment(models.Model):
-    """
-    DB model of article attachment.
-    """
-
-    name = models.CharField('附件名', max_length=120)
-    attachment = models.FileField('附件', upload_to='Articles')
-    upload_time = models.DateTimeField('上传时间', auto_now_add=True)
-    download_times = models.PositiveIntegerField('下载次数', default=0, editable=False)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = "附件"
-        verbose_name_plural = verbose_name
 
 
 class Category(models.Model):

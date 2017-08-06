@@ -13,7 +13,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, FormView
 from django.contrib.auth.models import User
-from blog.models import Article, Attachment, Category, Tag, UserProfile, WebSiteAbout
+from blog.models import Article, Category, Tag, UserProfile, WebSiteAbout
 from .models import BlogComment, AppSettings, WebSiteConfig
 from .forms import CustomeLoginForm, BlogCommentForm, ArticleEditForm
 from django.http import StreamingHttpResponse, HttpResponse, HttpRequest, request
@@ -151,51 +151,6 @@ def GetArticles(request):
     
     return HttpResponse(json.dumps({ "total" : len(articles), "rows" : queryset_to_json(articles[offset:(offset+limit)])}))
 
-def AddArticle(request):
-    """
-    Add a new blog.     
-    """
-    if not request.user.is_authenticated():
-        return render_to_response("user/login.html", RequestContext(request))
-
-    if request.method == 'POST':
-        title = request.POST.get('title', '')
-        body = request.POST.get('body', '')
-        status = request.POST.get('status', '')
-        topped = request.POST.get('topped', '')
-        attachment = request.POST.get('attachment', '')
-        category = request.POST.get('category', '')
-        tag = request.POST.get('tag', '')
-
-        myFile = request.FILES.get("attachment", None)
-        if myFile:
-            destination = open(os.path.join(settings.MEDIA_ROOT, myFile.name),'wb+')
-            for chunk in myFile.chunks(): 
-                destination.write(chunk)  
-            destination.close()
-        
-            attachedFile = Attachment()
-            attachedFile.name = myFile.name
-            attachedFile.attachment = myFile.name
-            newFile = attachedFile.save()
-
-
-        article = Article()
-        article.title = title
-        article.body = body
-        article.status = status
-        article.topped = topped
-        if myFile:
-            article.attachment = Attachment.objects.filter(name=myFile.name)[0]
-        article.category = Category.objects.filter(id=category)[0]
-        article.tag = Tag.objects.filter(id=tag)[0]
-        article.user = User.objects.filter(id=request.user.id)[0]
-        article.save()
-
-        article_id = Article.objects.filter(title=title, status=article.status, category=article.category, tag=article.tag)[0]
-        url = "article/" + str(article_id.id)
-        return HttpResponseRedirect(url)
-
 def UpdateArticle(request, article_id):
     """
     Update an existing article.     
@@ -212,26 +167,13 @@ def UpdateArticle(request, article_id):
         category = request.POST.get('category', '')
         tag = request.POST.get('tag', '')
 
-        myFile = request.FILES.get("attachment", None)
-        if myFile:
-            destination = open(os.path.join(settings.MEDIA_ROOT, myFile.name),'wb+')
-            for chunk in myFile.chunks(): 
-                destination.write(chunk)  
-            destination.close()
-        
-            attachedFile = Attachment()
-            attachedFile.name = myFile.name
-            attachedFile.attachment = myFile.name
-            newFile = attachedFile.save()
-
 
         article = Article.objects.get(id=article_id)
         article.title = title
         article.body = body
         article.status = status
         article.topped = topped
-        if myFile:
-            article.attachment = Attachment.objects.filter(name=myFile.name)[0]
+        article.attachment = attachment
         article.category = Category.objects.filter(id=category)[0]
         article.tag = Tag.objects.filter(id=tag)[0]
         article.user = User.objects.filter(id=request.user.id)[0]

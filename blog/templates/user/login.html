@@ -17,9 +17,6 @@ function keyDown(){
     <link rel="stylesheet" href="{% static 'blog/css/login.css' %}">
     <div class="center" style="height: 439px;" onkeydown="keyDown()">
         <div class="pc-centerbox">
-            <div class="pc-cenboxleft">
-                <img src="{% static 'blog/img/pc-leftppic.png' %}">
-            </div>
             <div class="loginbox">
                 <form name="loginForm" method="post" action="{% url 'blog:login' %}">
                     {% csrf_token %}
