@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block links %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'blog/css/article.css' %}">
+
+    <script type="text/javascript">
+        function comment(id){
+            comment = $("#comment").val()
+            $.get("/comment", { 'article_id' : newEmail, 'comment': comment}, function(result){
+                    if(result != "1"){
+                        $('#emailError').show();
+                        $("#emailMsg").text(result);
+                    }else{
+                        $('#EmailDisplay b').text(newEmail);
+                        $('#EmailInput').hide();
+                        $('#EmailDisplay').show();
+                    }
+                });
+        }
+    </script>
+{% endblock %}
+
+{% block container %}
+
+<div class="main-content-box">
+    <h1 class="title">{{ article.title }}</h1>
+    
+    <div class="detail-info-box">
+        <ul>
+            <li id="date">
+                编辑时间：
+                <span class="modify-time">
+                    {{ article.last_modified_time|date:"Y-n-j" }}
+                </span>
+            </li>    
+            <li id="view">
+                浏览量:
+                <span class="views">{{ article.views }}</span>
+            </li>
+        </ul>
+     </div>
+
+    <div class="blog-content">
+        {{ article.body|safe }}
+    </div>
+
+    <div class="comment-container">
+        <ul class="type-lists">
+            <li class="comment-title">评论</li>
+            <li class="comment-line"></li>
+        </ul>
+        <ul class="comments">
+            {% for comment in comments %}
+                <li>
+                    <div class="comment-body">{{ comment.body }}</div>
+                    <div class="buttons">
+                        <span>{{ comment.created_time }}</span>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="editor-container">
+            <div id="comment" class="editor" contenteditable="true">
+
+            </div>
+            <div class="buttons">
+                <a href="#" class="ui_btn" title="发表"><span><em>发 表</em></span></a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -4,177 +4,87 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <link href="{% static 'favicon.ico' %}" rel="icon" type="image/x-icon" />
-    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/base.css' %}">
-    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'lib/css/bootstrap-table.css' %}">
-    <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/css/base.css' %}">
     <link rel="stylesheet" href="{% static 'blog/css/header.css' %}">
     <link rel="stylesheet" href="{% static 'blog/css/footer.css' %}">
-    <link rel="stylesheet" href="{% static 'blog/css/pygments/github.css' %}">
-
-    <script type="text/javascript" src="{% static 'blog/js/jquery-3.1.1.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'blog/js/jquery.cookie.js' %}"></script>
-    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="{% static 'lib/js/bootstrap-table.js' %}"></script>
-    <script type="text/javascript" src="{% static 'lib/js/bootstrap-table-zh-CN.js' %}"></script>
-
-    <script type="text/javascript">
-        function SortTable(value1, value2){
-            if(value1 > value2){
-                return 1;
-            }else{
-                return -1;
-            }
-        }
-
-        function showArticles(table_id, url, id_name, columns, new_url){
-            //, new_url="/article/"
-            var oTable = new TableInit(table_id, url, id_name, columns, new_url);
-            oTable.Init();
-        }
-
-        var TableInit = function (table_id, url, id_name, columns, new_url) {
-            var oTableInit = new Object();
-            //Initialize Table
-            oTableInit.Init = function () {
-                $(table_id).bootstrapTable({
-                    url: url,         //Get table data from server.
-                    method: 'get',                      //Http request method.
-                    //toolbar: '#toolbar',                //工具按钮用哪个容器
-                    striped: true,                      //是否显示行间隔色
-                    cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
-                    pagination: true,                   //是否显示分页（*）
-                    sortable: true,                     //是否启用排序
-                    sortOrder: "asc",                   //排序方式
-                    queryParams: oTableInit.queryParams,//传递参数（*）
-                    sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
-                    pageNumber:1,                       //初始化加载第一页，默认第一页
-                    pageSize: 10,                       //每页的记录行数（*）
-                    pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
-                    search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
-                    strictSearch: false,
-                    showColumns: true,                  //是否显示所有的列
-                    showRefresh: true,                  //是否显示刷新按钮
-                    minimumCountColumns: 2,             //最少允许的列数
-                    clickToSelect: true,                //是否启用点击选中行
-                    height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
-                    uniqueId: id_name,                     //每一行的唯一标识，一般为主键列
-                    showToggle:false,                    //是否显示详细视图和列表视图的切换按钮
-                    cardView: false,                    //是否显示详细视图
-                    detailView: false,                  //是否显示父子表
-                    onDblClickRow:function (e, row) {
-                                    var row_uniqueid = $(row).attr("data-uniqueid")
-                                    window.location.href = new_url + row_uniqueid;
-                                },
-                    idField:"id",
-                    columns: columns,
-                    locale: "zh-CN"
-                });
-            };
-
-            cate_id = -1;
-            if (window.location.href.toLowerCase().indexOf("category" > 0)){
-                cate_id = window.location.href.toLowerCase().split("category/")[1];
-            }
-
-            //得到查询的参数
-            oTableInit.queryParams = function (params) {
-                var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
-                    limit: params.limit,   //页面大小
-                    offset: params.offset,  //页码
-                    cate_id: cate_id,
-                    searchText: this.searchText,
-                    sortName:this.sortName,
-                    sortOrder:this.sortOrder
-                };
-                return temp;
-            };
-            return oTableInit;
-        };
-    </script>
+    {% block links %}{% endblock %}
 </head>
+
 <body>
-{% block header %}
-<div class="headbox">
-    <a href="{% url 'blog:index' %}" class="logo">
-        <em>{{ WebSiteInfo.WebSiteName }}</em>
-    </a>
-    <div class="bannerbtn">
-        <a href="/">首页</a>
-        <span></span>
-        {% for category in category_list %}
-            <a href="{% url 'blog:category' category.pk %}">{{ category.name }}</a>
-            <span></span>
-        {% endfor %}
-        <a href="{% url 'blog:about' %}">关于</a>
-        <div class="now-line"></div>
+    <div id="globalMessage" class="alert alert-warning" style="display: none; z-index: 9999; top:10px;">
+        <a href="#" class="close" onclick="closeGlobalMessage()">
+            &times;
+        </a>
+        <strong>警告！</strong><span id="message" />
     </div>
-    {% if request.user.username != "" %}
-        <div class="registerlogin" >
-            <a href="{% url 'blog:logout' %}"><span class="pc-register">退出</span></a>
-            <a href="{% url 'blog:usercenter' %}"><span class="loginiocn">{{ request.user.username }}</span></a>
-        </div>
-    {% else %}
-        <div class="registerlogin" >
-            <a href="{% url 'blog:LoginPage' %}"><span class="loginiocn">登录</span></a>
-            <div class="clear"></div>
-        </div>
-    {% endif %}
-    <div class="clear"></div>
-</div>
-<div id="globalMessage" class="alert alert-warning" style="display: none; z-index: 9999; top:10px;">
-    <a href="#" class="close" onclick="closeGlobalMessage()">
-        &times;
-    </a>
-    <strong>警告！</strong><span id="message" />
-</div>  
-{% endblock %}
-
-<div id="container">
-    {% block content %}{% endblock %}
-</div>
-
-<div class="bottom">
-    <div class="bottomboxd">
-        <p>
-            {{ WebSiteInfo.Copyright }}.&nbsp;&nbsp;注册地址:{{ WebSiteInfo.Address }}&nbsp;&nbsp;联系电话: {{ WebSiteInfo.Phone }}
-            <a target="_blank" href="http://www.miitbeian.gov.cn/" rel="nofollow">{{ WebSiteInfo.ICP }}</a>
-            <a href="#" rel="nofollow" target="_blank">
-                <img alt="备案" src="{% static 'blog/img/gongan.png' %}" />
-            </a>
-        </p>
-        <div class="clear"></div>
+    <div id="header" class="header center">
+        <h1>{{ config.website_title }}</h1>
+        <nav class="topnav">
+            <ul>
+                <li class=""><a href="{% url 'blog:index' %}" style="opacity: 0.4;">首页</a></li>
+                {% for category in category_list %}
+                <li class="">
+                    <a href="{% url 'blog:category' category.id 0 %}" style="opacity: 0.4;">{{ category.name }}</a>
+                </li>
+                {% endfor %}
+                <li class=""><a href="{% url 'blog:about' %}" style="opacity: 0.4;">介绍</a></li>
+            </ul>
+        </nav>
     </div>
-</div>
+    <div id="container" class="container center">
+        <div>
+            {% block container %}
+            {% endblock %}
+            {% block sideblock %}{% endblock %}
+        </div>
+    </div>
+    <div id="footer" class="footer center">
+        <ul>
+            <li>
+                <p>Copyright：{{ config.copyright }}</p>
+                
+            </li>
+            <li>
+                <p>地址：{{ config.address }}</p>
+                
+            </li>
+            <li>
+                <p>备案号：<a target="_blank" href="http://www.miitbeian.gov.cn/" rel="nofollow">{{ config.icp }}</a></p>
+            </li>
+        </ul>
+    </div>
 
-<script type="text/javascript">
-    function showGlobalMessage(message){
-        $("#message").text(message);
-        $("#globalMessage").show();
-    }
-
-    function closeGlobalMessage(){
-        $("#message").text();
-        $("#globalMessage").hide();
-    }
-
-    $(".bannerbtn a").click(function (){
-        var left = $(this).css("left");
-        $(".now-line").css("left", left);
-        $.removeCookie('left');
-        $.cookie("left", left, { expires: 1, path: '/' });
-        return true;
-    });
-
-    $().ready(function (){
-        var left = $.cookie('left');
-        if(left == null){
-            $.cookie("left", "0px", { expires: 1, path: '/' });
-        }
-        $(".now-line").css("left", left);
-    });
-</script>
+    <script>
+        "use strict";
+        
+        (function () {
+        
+            var target = document.querySelector(".navtarget");
+            var links = document.querySelectorAll(".topnav a");
+            var color = "orange";
+        
+            function mouseenterFunc() {
+                if (!this.parentNode.classList.contains("active")) {
+                        for (var i = 0; i < links.length; i++) {
+                            if (links[i].parentNode.classList.contains("active")) {
+                                links[i].parentNode.classList.remove("active");
+                            }
+                            links[i].style.opacity = "0.4";
+                        }
+            
+                    this.parentNode.classList.add("active");
+                    this.style.opacity = "1";
+                }
+            }
+        
+            for (var i = 0; i < links.length; i++) {
+                /*
+                links[i].addEventListener("click", function (e) {
+                    //return e.preventDefault();
+                });
+                */
+                links[i].addEventListener("mouseenter", mouseenterFunc);
+            }
+        })();</script>            
 </body>
 </html>

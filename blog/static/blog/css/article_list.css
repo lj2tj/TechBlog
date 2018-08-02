@@ -1,19 +1,27 @@
-.emptylist {width: 100%; height: 80px; text-align: center; margin-top: 30px; font: "Microsoft YaHei", "微软雅黑", "Microsoft JhengHei", "华文黑体", STHeiti, sans-serif; font-size: x-large; color: #8B008B;}
-.leibietitle{ border-bottom: 1px solid #E3E3E3; padding-bottom:10px; margin-left: 10px;}
-.tagname{ color: #333; float: left; font-size: 24px; font-weight: 300; height: 32px; line-height: 32px; width: 60%;}
-.articlecontainer {border-top: 1px dotted #eee; margin-left: 10px;}
-.articlecontainer li{ list-style: none; width:175px; float: left; margin: 25px 5px;}
-.articlecontainer li:nth-child(6){ margin-right: 0px;}
-.articlecontainer li:nth-child(6n+0){margin-right:0px;}
-.article-left {margin-left: 5px;}
+.newblogs ul, li { list-style: none; }
+.newblogs a { text-decoration: none; color: #555 }
 
-.author,.time{ height: 18px; display: block; line-height: 18px; font-size: 12px; color:#666;}
-.time{ padding-bottom: 15px; border-bottom: 1px dotted #CCCCCC;}
+.newblogs { background: #fff; overflow: hidden; width: 100%; clear: both; border-radius: 10px; margin: 20px 0 }
+h3.blogtitle { line-height: 30px; margin: 10px 0; }
+h3.blogtitle:hover a { color: #000 }
+.newblogs ul { padding: 10px; overflow: hidden }
+.newblogs li { border-bottom: #ccc 1px solid; margin-bottom: 10px; overflow: hidden; }
 
-.scnarticlestatus{ height:20px; margin-top:10px; width: 100%;}
-.articlestatus p{ height:14px; width: 21%;  font-size: 12px; margin-top: 3px; line-height: 14px; color:#999999; display: inline-block; float: left; padding-left:23px; background: url(../img/read_icon.svg) 0px 0.09em no-repeat; }
-.articlestatus b{ font-style: normal; font-weight: normal; width:35%; float: left; text-align: center; color:#FF5B26; font-size: 12px; height:20px;}
-.articlestatus span{ width: 50px; height: 20px;  overflow: hidden; display: block;  position: relative; color: #666666; cursor: pointer; font-size: 12px; transform:scale(0.95); -webkit-transform:scale(0.95); -moz-transform:scale(0.95);-ms-transform:scale(0.95); background:#F5F5F5; text-align: center; line-height: 20px; float: right; border-radius: 10px; border:1px solid #E3E3E3;}
-.articlestatus span:hover{ background:#87BD29; height:22px; color: #FFF;  border:none;}
-.articlestatus .renminbi{ height: 20px; width: auto; line-height: 22px; float: right;  padding-left: 22px; position: relative; margin-top: 0px; font-size: 12px;color: #FF5C26; background: url(../img/background1.png) -12px -166px no-repeat;  }
-.articlestatus .jifen{height: 20px;width: auto;line-height: 22px;float: right;padding-left: 22px;position: relative;margin-top: 0px;font-size: 12px;color: #FF5C26;background: #FFF;}
+.autor { width: 100%; overflow: hidden; clear: both; margin: 20px 0 0 0; display: inline-block; color: #838383; font-size: 12px }
+.autor span { margin: 0 10px 0 0; padding-left: 20px }
+.autor span a { color: #096; }
+.autor span a:hover { text-decoration: underline }
+
+.lm { background: url(../img/icon/newsbg01.png) no-repeat left center }
+.dtime { background: url(../img/icon/date.png) no-repeat left center }
+.viewnum { background: url(../img/icon/view.png) no-repeat left center }
+.pingl { background: url(../img/icon/like.jpg) no-repeat left center }
+
+.blogpic { overflow: hidden; width: 30%; max-height: 100px; display: block; float: left; margin-right: 20px; border-radius: 5px; }
+.blogpic img { max-height: 100px; }
+.bloginfo div { color: #888; overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 3; padding-top: 10px; font-size: 14px; }
+
+.more { font-size: 14px; }
+
+.f_l { float: left; }
+.f_r { float: right; }

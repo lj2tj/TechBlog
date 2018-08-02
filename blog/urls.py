@@ -1,26 +1,28 @@
-#!/usr/bin/env python
-#coding=utf-8
+"""blog_project URL Configuration
 
-from django.conf.urls import url, include
-from django.contrib.auth.decorators import login_required
-from blog import views, viewUser
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/2.0/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django.urls import path, re_path
+
+from blog import views
+
+app_name = 'blog'
 
 urlpatterns = [
-    url(r'^$', views.IndexView.as_view(), name='index'),
-    url(r'^(?i)article/(?P<article_id>\d+)$', views.ArticleDetailView.as_view(), name='detail'),
-    url(r'^(?i)Download/(?P<article_id>\d+)$', viewUser.Download, name='download'),
-    url(r'^(?i)GetArticles$', views.GetArticles, name='GetArticles'),
-    url(r'^(?i)NewArticle$', login_required(views.NewArticle), name='NewArticle'),
-    url(r'^(?i)EditArticle/(?P<article_id>\d+)$', login_required(views.EditArticle), name='EditArticle'),
-    url(r'^(?i)UpdateArticle/(?P<article_id>\d+)$', login_required(views.UpdateArticle), name='UpdateArticle'),
-    url(r'^(?i)category/(?P<cate_id>\d+)$', views.CategoryView.as_view(), name='category'),
-    url(r'^(?i)tag/(?P<tag_id>\d+)$', views.TagView.as_view(), name='tag'),
-    url(r'^(?i)article/(?P<article_id>\d+)/comment/$', views.CommentPostView.as_view(), name='comment'),
-    url(r'^(?i)about$', views.About.as_view(), name='about'),
-    url(r'^(?i)usercenter$', login_required(viewUser.UserCenter), name='usercenter'),
-    url(r'^(?i)UpdateUserInfo$', login_required(viewUser.UpdateUserInfo), name='UpdateUserInfo'),
-    url(r'^(?i)ValidateUserName$', viewUser.ValidateUserName, name='ValidateUserName'),
-    url(r'^(?i)login$', viewUser.login, name='login'),
-    url(r'^(?i)logout$', viewUser.logout, name='logout'),
-    url(r'^(?i)loginpage$', viewUser.loginPage, name='LoginPage'),
+    path('', views.index, name='index'),
+    path("index/", views.index),
+    path("category/<int:category_id>/<int:page_index>/", views.category, name="category"),
+    path("article/<int:article_id>/", views.article, name="article"),
+    path("about/", views.about, name="about"),
 ]

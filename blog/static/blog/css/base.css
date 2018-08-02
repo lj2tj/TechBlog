@@ -1,0 +1,40 @@
+body {
+    padding: 0 20px;
+    margin: 0;
+    font-family: 'Microsoft Yahei', '微软雅黑', 'simsun', Arial, sans-serif;
+    background-color: #ededed;
+    z-index:0;
+}
+
+/*网页主体部分*/
+
+#container {
+    margin: 0 auto 5px auto;
+
+	background-color: rgb(19, 18, 18);
+
+	background-image:-webkit-radial-gradient(center, circle farthest-corner, #fff, #e2e2e2);
+	background-image:-moz-radial-gradient(center, circle farthest-corner, #fff, #e2e2e2);
+	background-image:radial-gradient(center, circle farthest-corner, #fff, #e2e2e2);
+    box-shadow: 0 3px 3px rgba(0,0,0,0.2);
+    
+    z-index:0;
+}
+
+#container > div {
+    min-height: 400px;
+}
+
+/*居中布局*/
+.center {
+    width:980px;
+}
+
+/*清空浮动*/
+.clear{
+    clear:both;
+}
+
+ul, ul li{
+    list-style: none;
+}

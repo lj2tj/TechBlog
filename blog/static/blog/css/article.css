@@ -1,0 +1,43 @@
+
+.main-content-box{padding:10px;background-color:#fffcfc;transition:all 1s;overflow:hidden}
+
+.main-content-box h1.title{font-size:20px;font-weight:500;color:#0088db;text-align:center;padding:10px 0}
+
+.main-content-box .detail-info-box{height:30px;color:#ac5a24;margin-top:10px;line-height:30px;border:1px dashed #999;border-left:0;border-right:0;overflow:hidden}
+.main-content-box .detail-info-box ul{width:470px;margin:0 auto; list-style: none;}
+.main-content-box .detail-info-box ul li{float:left;width:155px;text-align:center}
+.main-content-box .detail-info-box ul li span#countnum,.detail-info-box ul li span.author{color:#f36}
+
+.main-content-box .blog-content{color:#1a1919;line-height:28px;font-size:16px;padding:10px 0}
+
+.dtime { background: url(../img/icon/date.png) no-repeat left center }
+.viewnum { background: url(../img/icon/view.png) no-repeat left center }
+.pingl { background: url(../img/icon/like.jpg) no-repeat left center }
+
+/*注释部分*/
+.comment-container .type-lists {
+    line-height: 30px;
+    height: 30px;
+    position: relative;
+    margin-top: 50px;
+    padding: 0px;
+    overflow: hidden;
+}
+
+.comment-container .type-lists .comment-line {
+    margin-left: 66px;
+    height: 29px;
+    width: 100%;
+    border-bottom: #0088db 1px solid;
+}
+
+.comment-container .type-lists .comment-title {
+    float: left;
+    margin-left: 0px;
+    width: 66px;
+    text-align: center;
+    color: #4398ed;
+    background: url(../img/border.png) no-repeat;
+}
+
+/**/
