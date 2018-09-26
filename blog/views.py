@@ -1,5 +1,6 @@
 from django.shortcuts import render, render_to_response
 from django.http import Http404, HttpResponseRedirect, HttpResponse
+from django.urls import reverse
 
 from .models_article import Category, Article, Comment
 from .models_account import UserProfile
@@ -65,14 +66,42 @@ def article(request, article_id):
         "config" : config,
         "category_list" : categories,
         "article" : article,
-        "comments" : comments
+        "comments" : comments,
+        "user_name" : request.session.get('user_name', ''), 
+        "user_email" : request.session.get('user_email', ''), 
+        "comment_editor" : request.session.get('comment_editor', '')
     }
+
+    request.session['user_name'] = ''
+    request.session['user_email'] = ''
+    request.session['comment_editor'] = ''
+
     return render(request, "article.html", context=context)
 
 def like(request, article_id):
 
     pass
 
+def addcomment(request, article_id):
+    user_name = request.POST.get('user_name', '')
+    user_email = request.POST.get('user_email', '')
+    comment_editor = request.POST.get('comment_editor_hidden', '')
+
+    if user_name and user_email and comment_editor:
+        comment = Comment()
+        comment.user_name = user_name
+        comment.user_email = user_email
+        comment.body = comment_editor
+        comment.article = Article.objects.get(id=article_id)
+        comment.save()
+
+        return HttpResponseRedirect('/blog/article/%d/' % article_id)
+    else:
+        request.session['user_name'] = user_name
+        request.session['user_email'] = user_email
+        request.session['comment_editor'] = comment_editor
+        return article(request, article_id)
+    pass
 
 def about(request):
     config = GlobalConfig.objects.all()[0]

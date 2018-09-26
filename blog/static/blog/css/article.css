@@ -4,15 +4,16 @@
 .main-content-box h1.title{font-size:20px;font-weight:500;color:#0088db;text-align:center;padding:10px 0}
 
 .main-content-box .detail-info-box{height:30px;color:#ac5a24;margin-top:10px;line-height:30px;border:1px dashed #999;border-left:0;border-right:0;overflow:hidden}
-.main-content-box .detail-info-box ul{width:470px;margin:0 auto; list-style: none;}
-.main-content-box .detail-info-box ul li{float:left;width:155px;text-align:center}
-.main-content-box .detail-info-box ul li span#countnum,.detail-info-box ul li span.author{color:#f36}
+.main-content-box .detail-info-box ul{width:500px;margin:0 auto; list-style: none;}
+.main-content-box .detail-info-box ul li{float: left;width:200px;text-align:center}
 
 .main-content-box .blog-content{color:#1a1919;line-height:28px;font-size:16px;padding:10px 0}
 
 .dtime { background: url(../img/icon/date.png) no-repeat left center }
 .viewnum { background: url(../img/icon/view.png) no-repeat left center }
 .pingl { background: url(../img/icon/like.jpg) no-repeat left center }
+
+
 
 /*注释部分*/
 .comment-container .type-lists {
@@ -40,4 +41,52 @@
     background: url(../img/border.png) no-repeat;
 }
 
+.comment-container form .required:after{
+    content: '*'; 
+    color: #f00;
+}
 /**/
+.comment-container .comments{
+    padding-left:0px;
+    font-size: 14px;
+}
+
+.comment-container .comments li{
+    list-style: none;
+    margin-bottom: 10px;
+    padding-left: 0px;
+    display: block;
+}
+.comment-container .comments li.clearfix:after {content:"."; display:block; height:0; visibility:hidden; clear:both; }
+
+.comment-container .comments .comments-text-wrap {
+    border-top: 1px solid #ccc;
+}
+
+.comment-container .comments li .user-img {
+    margin: 5px 10px auto 0px;
+    padding: 0px;
+    float: left;
+    border-radius: 4px;
+}
+
+.comment-container .comments .comments-text-box {
+    display: block;
+    width: 90%;
+    float: left;
+}
+
+.comment-container .comments .comments-text-box .comment-author {
+    color: #d32;
+    margin: 2px;
+}
+
+.comment-container .comments .comments-text-box p {
+    color: gray;
+    float: right;
+}
+
+.comment-container .comment-editor {
+    border:  #4398ed solid thin;
+    min-height: 10rem;
+}

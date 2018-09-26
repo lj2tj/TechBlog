@@ -38,3 +38,8 @@ body {
 ul, ul li{
     list-style: none;
 }
+
+/* 错误提示 */
+.error{
+	color:red;
+}

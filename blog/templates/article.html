@@ -3,38 +3,45 @@
 {% block links %}
     {% load staticfiles %}
     <link rel="stylesheet" href="{% static 'blog/css/article.css' %}">
-
-    <script type="text/javascript">
-        function comment(id){
-            comment = $("#comment").val()
-            $.get("/comment", { 'article_id' : newEmail, 'comment': comment}, function(result){
-                    if(result != "1"){
-                        $('#emailError').show();
-                        $("#emailMsg").text(result);
-                    }else{
-                        $('#EmailDisplay b').text(newEmail);
-                        $('#EmailInput').hide();
-                        $('#EmailDisplay').show();
-                    }
-                });
-        }
-    </script>
+    <script src="{% static 'lib/js/jquery-3.3.1.min.js' %}"></script>
 {% endblock %}
 
 {% block container %}
+<script type="text/javascript">
+    function comment(){
+        if($("#user_name").val().trim().length === 0){
+            $("#user_name_error").show()
+            return false;
+        }
+
+        if($("#user_email").val().trim().length === 0){
+            $("#user_email_error").show()
+            return false;
+        }
+
+        $("#comment_editor_hidden").val("")
+        var comment = $("#comment_editor").html().trim()
+        if(comment.length > 0){
+            $("#comment_editor_hidden").val(comment)
+            $("#comment_form").submit()
+            return true;
+        }else{
+            $("#comment_editor_error").show()
+            return false;
+        }
+    }
+</script>
 
 <div class="main-content-box">
     <h1 class="title">{{ article.title }}</h1>
     
     <div class="detail-info-box">
         <ul>
-            <li id="date">
+            <li>
                 编辑时间：
-                <span class="modify-time">
-                    {{ article.last_modified_time|date:"Y-n-j" }}
-                </span>
-            </li>    
-            <li id="view">
+                <span class="modify-time">{{ article.last_modified_time|date:"Y-n-j" }}</span>
+            </li>
+            <li>
                 浏览量:
                 <span class="views">{{ article.views }}</span>
             </li>
@@ -50,24 +57,55 @@
             <li class="comment-title">评论</li>
             <li class="comment-line"></li>
         </ul>
+        <div class="editor-container">
+            <form id="comment_form" action="{% url 'blog:addcomment' article.id %}" method="post">
+                {% csrf_token %}
+                <table>
+                    <tr>
+                        <td class="required">姓名</td>
+                        <td>
+                            <input type="text" id="user_name" name="user_name" value="{{ user_name }}">
+                            <div style="display:none; color:red;" id="user_name_error">请填写姓名</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="required">邮箱</td>
+                        <td>
+                            <input type="text" id="user_email" name="user_email" value="{{ user_email }}">
+                            <div style="display:none; color:red;" id="user_email_error">请填写邮箱</div>
+                        </td>
+                    </tr>
+                </table>
+                <div>
+                    <div class="edui-toolbar ">
+
+                    </div>
+                </div>
+                <div id="comment_editor" class="comment-editor" contenteditable="true">
+                    {{ comment_editor|safe }}
+                </div>
+                <div style="display:none; color:red;" id="comment_editor_error">请填写留言</div>
+                <div class="buttons">
+                    <a href="#" id="comment_submit" class="ui-btn ui-btn-inline ui-corner-all" title="发表" onclick="return comment()"><span>发 表</span></a>
+                </div>
+                <input type="hidden" id="comment_editor_hidden" name="comment_editor_hidden" required>
+            </form>
+        </div>
         <ul class="comments">
             {% for comment in comments %}
-                <li>
-                    <div class="comment-body">{{ comment.body }}</div>
-                    <div class="buttons">
-                        <span>{{ comment.created_time }}</span>
+                <li class="clearfix">
+                    <div class="comments-text-wrap">
+                        <div class="user-img"><img src="/static/blog/img/profile.jpg" width="50" height="50"></div>
+                        <div class="comments-text-box">
+                            <h3 class="comment-author">{{ comment.user_name }}</h3>
+                            <div class="comment-body">{{ comment.body|safe }}</div>
+                            <p class="info">{{ comment.created_time }}</p>
+                        </div>
                     </div>
                 </li>
             {% endfor %}
         </ul>
-        <div class="editor-container">
-            <div id="comment" class="editor" contenteditable="true">
-
-            </div>
-            <div class="buttons">
-                <a href="#" class="ui_btn" title="发表"><span><em>发 表</em></span></a>
-            </div>
-        </div>
     </div>
 </div>
+
 {% endblock %}

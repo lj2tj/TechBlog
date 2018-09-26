@@ -24,5 +24,6 @@ urlpatterns = [
     path("index/", views.index),
     path("category/<int:category_id>/<int:page_index>/", views.category, name="category"),
     path("article/<int:article_id>/", views.article, name="article"),
+    path("addcomment/<int:article_id>/", views.addcomment, name="addcomment"),
     path("about/", views.about, name="about"),
 ]
