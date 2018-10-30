@@ -3,7 +3,7 @@ from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 
 from .models_article import Category, Article, Comment
-from .models_account import UserProfile
+from .models_account import UserProfile, MyTech
 from .models_website import GlobalConfig
 
 # Create your views here.
@@ -107,11 +107,13 @@ def about(request):
     config = GlobalConfig.objects.all()[0]
     categories = Category.objects.all()
     author = UserProfile.objects.all()[0]
+    my_tech = MyTech.objects.all()
 
     context = {
         "config" : config,
         "category_list" : categories,
-        "author" : author
+        "author" : author,
+        "my_tech" : my_tech
     }
 
     return render(request, "about.html", context=context)

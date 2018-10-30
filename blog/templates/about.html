@@ -1,10 +1,42 @@
 {% extends "base.html" %}
 
+{% block links %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'blog/css/about.css' %}">
+{% endblock %}
+
 {% block container %}
 
-    <h2 class="blog_head">{{ author.user.last_name }}{{ author.user.first_name }}</h2>
+<header class="pageheader">
+    <h2 class="blog_head">个人简介</h2>
+</header>
+
+<div class="article_content">
+    <p><img src="/static/blog/img/profile.jpg" style="border-radius:50%;width:100px"></p>
+    <p style="text-align: center;font-size:16px">{{ author.user.last_name }}{{ author.user.first_name }}</p>
     <p class="blog_body">
         {{ author.about|safe }}
     </p>
+    
+</div>
+
+<div class="skill_tree">
+    <h2 class="skill_tree_header">我的技能树</h2>
+
+    <section class="tech">
+        {% for tech in my_tech %}
+        <div class="item">
+            <div class="describe">
+                {{ tech.name }}
+            </div>
+            <div class="progress">
+                <span class="green" style="width: {{ tech.proficiency }}0%;">{{ tech.proficiency }}0%</span>
+            </div>
+            <div class="like">{{ tech.nice_count }}</div>
+        </div>
+        {% endfor %}
+    </section>
+</div>
+    
 
 {% endblock %}
