@@ -3,7 +3,7 @@
 --------------------------*/
 
 .footer{
-    height: 100px;
+	min-height: 20px;
 	font-size:12px;
 	position: fixed;
 	left: 50%;
@@ -22,7 +22,7 @@
 
 .footer > ul{
 	width: 100%;
-	display: flex;
+	display: none;
 	justify-content: space-around;
 	z-index: -1;
 }
