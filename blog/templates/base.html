@@ -47,11 +47,9 @@
         <ul>
             <li>
                 <p>Copyright：{{ config.copyright }}</p>
-                
             </li>
             <li>
                 <p>地址：{{ config.address }}</p>
-                
             </li>
             <li>
                 <p>备案号：<a target="_blank" href="http://www.miitbeian.gov.cn/" rel="nofollow">{{ config.icp }}</a></p>
@@ -81,15 +79,54 @@
                     this.style.opacity = "1";
                 }
             }
-        
-            for (var i = 0; i < links.length; i++) {
-                /*
-                links[i].addEventListener("click", function (e) {
-                    //return e.preventDefault();
-                });
-                */
-                links[i].addEventListener("mouseenter", mouseenterFunc);
+            
+            function getActiveLinkIndex(){
+                for (var i = 0; i < links.length; i++) {
+                    if (links[i].parentNode.classList.contains("active")) {
+                        window.localStorage.setItem("active_link_index", i);
+                    }
+                }
             }
-        })();</script>            
+
+            function setActiveLink(){
+                for (var i = 0; i < links.length; i++) {
+                    if (links[i].parentNode.classList.contains("active")) {
+                        links[i].parentNode.classList.remove("active");
+                    }
+                    links[i].style.opacity = "0.4";
+                }
+                
+                if(!window.localStorage["active_link_index"]){
+                    window.localStorage.setItem("active_link_index", 0);
+                }
+                var link = links[window.localStorage["active_link_index"]];
+                link.parentNode.classList.add("active");
+                link.style.opacity = "1";
+            }
+
+            for (var i = 0; i < links.length; i++) {
+                links[i].addEventListener("mouseenter", mouseenterFunc);
+                links[i].addEventListener("mouseleave", setActiveLink);
+                links[i].addEventListener("click", getActiveLinkIndex);
+            }
+
+            setActiveLink()
+        })();
+
+        (function () {
+            var footer_container = document.querySelector("#footer");
+            var footer = document.querySelector("#footer > ul");
+
+            function mouseenterFunc(){
+                footer.style.display = "flex";
+            }
+            footer_container.addEventListener("mouseenter", mouseenterFunc);
+
+            function mouseleaveFunc(){
+                footer.style.display = "none";
+            }
+            footer.addEventListener("mouseleave", mouseleaveFunc);
+        })();
+    </script>            
 </body>
 </html>
