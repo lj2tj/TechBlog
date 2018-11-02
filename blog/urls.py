@@ -26,4 +26,5 @@ urlpatterns = [
     path("article/<int:article_id>/", views.article, name="article"),
     path("addcomment/<int:article_id>/", views.addcomment, name="addcomment"),
     path("about/", views.about, name="about"),
+    path("liketech/<int:tech_id>/", views.like_tech, name="like_tech"),
 ]

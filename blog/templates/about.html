@@ -21,7 +21,7 @@
 </div>
 
 <div class="skill_tree">
-    <h2 class="skill_tree_header">我的技能树</h2>
+    <h2 class="skill_tree_header">我的技能树</h2> 
 
     <section class="tech">
         {% for tech in my_tech %}
@@ -32,11 +32,32 @@
             <div class="progress">
                 <span class="green" style="width: {{ tech.proficiency }}0%;">{{ tech.proficiency }}0%</span>
             </div>
-            <div class="like">{{ tech.nice_count }}</div>
+            <div class="like">
+                <a href="#" onclick="likeTech(this, {{ tech.id }})">
+                    <span class="glyphicon glyphicon-thumbs-up"></span>
+                    <span class="number">{{ tech.nice_count }}</span>
+                </a>
+            </div>
         </div>
         {% endfor %}
     </section>
 </div>
     
-
+<script type="text/javascript">
+    function likeTech(obj, id){
+        $.ajax({
+            type:"POST",
+            data: { csrfmiddlewaretoken:"{{ csrf_token }}" },
+            url: "/blog/liketech/" + id + "/", 
+            cache: false,
+            dataType: "json",
+            success: function(data){
+                $(obj).children(".number").html(data);
+            },
+            error: function(data){
+                window.alert("支持作者失败");
+            }
+        });
+    }
+</script>
 {% endblock %}

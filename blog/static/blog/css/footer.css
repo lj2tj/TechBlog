@@ -3,11 +3,12 @@
 --------------------------*/
 
 .footer{
+	width: 1170px;
 	min-height: 20px;
 	font-size:12px;
 	position: fixed;
 	left: 50%;
-	margin-left: -490px;
+	margin-left: -585px;
 	bottom: 5px;
 
 	z-index:-2;

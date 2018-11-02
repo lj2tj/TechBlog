@@ -78,9 +78,19 @@ def article(request, article_id):
 
     return render(request, "article.html", context=context)
 
-def like(request, article_id):
-
-    pass
+def like_tech(request, tech_id):
+    tech = MyTech.objects.filter(id=tech_id)
+    if tech:
+        try:
+            count = tech[0].nice_count
+            tech[0].nice_count = count + 1
+            tech[0].save()
+            count = count + 1
+            return HttpResponse(str(count))
+        except Exception as e:
+            return HttpResponse("-1")
+    else:
+        return HttpResponse("-1")
 
 def addcomment(request, article_id):
     user_name = request.POST.get('user_name', '')

@@ -12,6 +12,8 @@
 
     <!-- 引入 jQuery Mobile 样式 -->
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     {% block links %}{% endblock %}
 </head>
 
@@ -22,7 +24,7 @@
         </a>
         <strong>警告！</strong><span id="message" />
     </div>
-    <div id="header" class="header center">
+    <div id="header" class="header">
         <h1>{{ config.website_title }}</h1>
         <nav class="topnav">
             <ul>
@@ -36,14 +38,14 @@
             </ul>
         </nav>
     </div>
-    <div id="container" class="container center">
+    <div id="container" class="container">
         <div>
             {% block container %}
             {% endblock %}
             {% block sideblock %}{% endblock %}
         </div>
     </div>
-    <div id="footer" class="footer center">
+    <div id="footer" class="footer">
         <ul>
             <li>
                 <p>Copyright：{{ config.copyright }}</p>
@@ -127,6 +129,9 @@
             }
             footer.addEventListener("mouseleave", mouseleaveFunc);
         })();
-    </script>            
+    </script>
+    
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script> 
 </body>
 </html>

@@ -23,11 +23,7 @@ body {
 
 #container > div {
     min-height: 400px;
-}
-
-/*居中布局*/
-.center {
-    width:980px;
+    margin-bottom: 20px;
 }
 
 /*清空浮动*/
@@ -43,3 +39,5 @@ ul, ul li{
 .error{
 	color:red;
 }
+
+/* icon */
