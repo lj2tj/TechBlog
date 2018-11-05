@@ -3,7 +3,6 @@
 --------------------------*/
 
 .footer{
-	width: 1170px;
 	min-height: 20px;
 	font-size:12px;
 	position: fixed;
@@ -17,6 +16,12 @@
 	color:#ccc;
 	display: flex;
 	justify-content: space-around;
+}
+
+@media (min-width: 450px) {
+    .footer{
+        width:1170px;
+    }
 }
 
 /* Set a width to the outermost UL and center it */

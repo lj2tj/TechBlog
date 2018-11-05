@@ -4,7 +4,12 @@
     background-color:#d1e1f5;
     color:#ccc;
     margin: 0 auto auto auto;
-    width: 1170px;
+}
+
+@media (min-width: 450px) {
+    .header{
+        width:1170px;
+    }
 }
 
 .header h1 {
