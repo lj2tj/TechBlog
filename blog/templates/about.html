@@ -42,6 +42,58 @@
         {% endfor %}
     </section>
 </div>
+
+<div class="comment_tree">
+    <h2 class="comment_tree_header">给我留言</h2>
+
+    <div class="editor-container">
+        <table style="width:100%;">
+            <tr>
+                <td class="required">姓名</td>
+                <td>
+                    <input type="text" id="user_name" name="user_name" value="{{ user_name }}">
+                    <div style="display:none; color:red;" id="user_name_error">请填写姓名</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="required">邮箱</td>
+                <td>
+                    <input type="text" id="user_email" name="user_email" value="{{ user_email }}" type="email">
+                    <div style="display:none; color:red;" id="user_email_error">请填写邮箱</div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div id="comment_editor" class="comment-editor" contenteditable="true">
+                        {{ comment_editor|safe }}
+                    </div>
+                    <div style="display:none; color:red;" id="comment_editor_error">请填写留言</div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <a href="#" id="comment_submit" class="ui-btn ui-btn-inline ui-corner-all" onclick="comment()">
+                        <span>发 表</span>
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <ul class="comments">
+        {% for comment in comments %}
+            <li class="clearfix">
+                <div class="comments-text-wrap">
+                    <div class="user-img"><img src="/static/blog/img/mprofile.jpg" width="50" height="50"></div>
+                    <div class="comments-text-box">
+                        <h3 class="comment-author">{{ comment.user_name }}</h3>
+                        <div class="comment-body">{{ comment.body|safe }}</div>
+                        <p class="info">{{ comment.created_time }}</p>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
     
 <script type="text/javascript">
     function likeTech(obj, id){
@@ -56,6 +108,62 @@
             },
             error: function(data){
                 window.alert("支持作者失败");
+            }
+        });
+    }
+</script>
+
+<script type="text/javascript">
+    function comment(){
+        var user_name = $("#user_name").val().trim()
+        if(user_name.length === 0){
+            $("#user_name_error").show()
+            return false;
+        }
+        
+        var user_email = $("#user_email").val().trim()
+        if(user_email.length === 0){
+            $("#user_email_error").show()
+            return false;
+        }
+
+        var comment = $("#comment_editor").html().trim()
+        if(comment.length == 0){
+            $("#comment_editor_error").show()
+            return false;
+        }
+
+        $.ajax({
+            type:"POST",
+            data: { 
+                csrfmiddlewaretoken:"{{ csrf_token }}",
+                "user_name": user_name,
+                "user_email": user_email,
+                "comment": comment
+            },
+            url: "/blog/accountcomment/0/", 
+            cache: false,
+            dataType: "json",
+            success: function(data){
+                $(".comments").prepend("<li class=\"clearfix\"></li>")
+                $(".comments li:first").prepend("<div class=\"comments-text-wrap\"></div>")
+
+                
+                var text = "<div class=\"user-img\"><img src=\"/static/blog/img/mprofile.jpg\" width=\"50\" height=\"50\"></div>"
+                $(".comments li:first .comments-text-wrap").prepend(text)
+
+                text = '<div class="comments-text-box"></div>'
+                $(".comments li:first .comments-text-wrap").append(text)
+
+                text = '<h3 class="comment-author">' + user_name + '</h3>'
+                $(".comments li:first .comments-text-wrap .comments-text-box").append(text)
+                text = '<div class="comment-body">' + comment + '</div>'
+                $(".comments li:first .comments-text-wrap .comments-text-box").append(text)
+                text = '<p class="info">' + (new Date()).toLocaleString() + '</p>'
+                $(".comments li:first .comments-text-wrap .comments-text-box").append(text)
+            },
+            error: function(data){
+                window.alert("支持作者失败" + data.error);
             }
         });
     }

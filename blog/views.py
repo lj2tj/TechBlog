@@ -3,7 +3,7 @@ from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 
 from .models_article import Category, Article, Comment
-from .models_account import UserProfile, MyTech
+from .models_account import UserProfile, MyTech, AccountComment
 from .models_website import GlobalConfig
 
 # Create your views here.
@@ -113,17 +113,39 @@ def addcomment(request, article_id):
         return article(request, article_id)
     pass
 
+def accountcomment(request, comment_to):
+    user_name = request.POST.get('user_name', '')
+    user_email = request.POST.get('user_email', '')
+    comment = request.POST.get('comment', '')
+
+    if user_name and user_email and comment:
+        try:
+            ac = AccountComment()
+            ac.user_name = user_name
+            ac.user_email = user_email
+            ac.body = comment
+            ac.comment_to = comment_to
+            ac.save()
+            return HttpResponse(str(ac.id))
+        except Exception as e:
+            return HttpResponse("-1")
+    else:
+        return HttpResponse("-1")
+    pass
+
 def about(request):
     config = GlobalConfig.objects.all()[0]
     categories = Category.objects.all()
     author = UserProfile.objects.all()[0]
     my_tech = MyTech.objects.all()
+    ac = AccountComment.objects.all().order_by("-id")
 
     context = {
         "config" : config,
         "category_list" : categories,
         "author" : author,
-        "my_tech" : my_tech
+        "my_tech" : my_tech,
+        "comments" : ac
     }
 
     return render(request, "about.html", context=context)

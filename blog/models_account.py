@@ -33,3 +33,22 @@ class MyTech(models.Model):
     class Meta:
         verbose_name = "技能"
         verbose_name_plural = verbose_name
+
+class AccountComment(models.Model):
+    """
+    Comment to me or my reply. If comment_to is -1, that means it is comment to me.
+    """
+    user_name = models.CharField('评论者名字', max_length=20, null=False)
+    user_email = models.EmailField('评论者邮箱', max_length=100, null=False)
+    body = HTMLField('评论内容', max_length=500)
+    created_time = models.DateTimeField('评论发表时间', auto_now_add=True)
+    comment_to = models.IntegerField('MyComment', default="-1")
+
+    def __str__(self):
+        return self.body[:20]
+
+    class Meta:
+        db_table = 'account_comment'
+        managed = True
+        verbose_name = '评论'
+        verbose_name_plural = '评论'

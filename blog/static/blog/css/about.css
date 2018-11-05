@@ -104,3 +104,104 @@
         margin-bottom:5px;
     }
 }
+
+/* 留言部分 */
+/*注释部分*/
+.comment_tree {
+    text-indent: 0px;
+    text-align: left;
+}
+
+.comment_tree .comment_tree_header{
+    background-color: #fff;
+    text-align: center;
+}
+
+.comment_tree .comment-editor{
+    text-align: left;
+    width: 100%;
+}
+
+.comment_tree .editor-container{
+    text-align: left;
+}
+
+.comment_tree .editor-container table tr{
+    margin-bottom: 3px;
+    padding-bottom: 3px;
+}
+
+.comment_tree .type-lists {
+    line-height: 30px;
+    height: 30px;
+    position: relative;
+    margin-top: 50px;
+    padding: 0px;
+    overflow: hidden;
+}
+
+.comment_tree .type-lists .comment-line {
+    margin-left: 66px;
+    height: 29px;
+    width: 100%;
+    border-bottom: #0088db 1px solid;
+}
+
+.comment_tree .type-lists .comment-title {
+    float: left;
+    margin-left: 0px;
+    width: 66px;
+    text-align: center;
+    color: #4398ed;
+    background: url(../img/border.png) no-repeat;
+}
+
+.comment_tree form .required:after{
+    content: '*'; 
+    color: #f00;
+}
+/**/
+.comment_tree .comments{
+    padding-left:0px;
+    font-size: 14px;
+}
+
+.comment_tree .comments li{
+    list-style: none;
+    margin-bottom: 10px;
+    padding-left: 0px;
+    display: block;
+}
+.comment_tree .comments li.clearfix:after {content:""; display:block; height:0; visibility:hidden; clear:both; }
+
+.comment_tree .comments .comments-text-wrap {
+    border-top: 1px solid #ccc;
+}
+
+.comment_tree .comments li .user-img {
+    margin: 5px 10px auto 0px;
+    padding: 0px;
+    float: left;
+    border-radius: 4px;
+}
+
+.comment_tree .comments .comments-text-box {
+    display: block;
+    width: 90%;
+    float: left;
+}
+
+.comment_tree .comments .comments-text-box .comment-author {
+    color: #d32;
+    margin: 2px;
+}
+
+.comment_tree .comments .comments-text-box p {
+    color: gray;
+    float: right;
+}
+
+.comment_tree .comment-editor {
+    border:  #4398ed solid thin;
+    min-height: 10rem;
+}
