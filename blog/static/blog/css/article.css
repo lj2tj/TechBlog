@@ -1,19 +1,18 @@
-
 .main-content-box{padding:10px;background-color:#fffcfc;transition:all 1s;overflow:hidden}
 
-.main-content-box h1.title{font-size:20px;font-weight:500;color:#0088db;text-align:center;padding:10px 0}
+/* 头部 */
+.main-content-box h1.title{font-size:20px;font-weight:500;color:#0088db;text-align:center;padding:5px 0}
 
-.main-content-box .detail-info-box{height:30px;color:#ac5a24;margin-top:10px;line-height:30px;border:1px dashed #999;border-left:0;border-right:0;overflow:hidden}
-.main-content-box .detail-info-box ul{width:500px;margin:0 auto; list-style: none;}
-.main-content-box .detail-info-box ul li{float: left;width:200px;text-align:center}
+.main-content-box .detail-info-box{text-align: center; height:30px;color:#ac5a24;line-height:30px;border:1px dashed #999;border-left:0;border-right:0;overflow:hidden}
+.main-content-box .detail-info-box ul{width:100%; list-style: none;}
+.main-content-box .detail-info-box ul li{float: left; margin-right: 40px;}
+.main-content-box .detail-info-box ul li::after{clear: both;}
+.modify-time:before {content:url(../img/icon/date.png)}
+.views:before {content:url(../img/icon/view.png)}
+.likes:before {content:url(../img/icon/like.jpg)}
 
+/* 主体 */
 .main-content-box .blog-content{color:#1a1919;line-height:28px;font-size:16px;padding:10px 0}
-
-.dtime { background: url(../img/icon/date.png) no-repeat left center }
-.viewnum { background: url(../img/icon/view.png) no-repeat left center }
-.pingl { background: url(../img/icon/like.jpg) no-repeat left center }
-
-
 
 /*注释部分*/
 .comment-container .type-lists {

@@ -45,6 +45,19 @@ def category(request, category_id, page_index):
     }
     return render(request, "category.html", context=context)
 
+def like_article(request, article_id):
+    article = Article.objects.filter(id=article_id)
+    if article:
+        try:
+            count = article[0].likes
+            article[0].likes = count + 1
+            article[0].save()
+            return HttpResponse(str(article[0].likes))
+        except Exception as e:
+            return HttpResponse("-1")
+    else:
+        return HttpResponse("-1")
+
 def article(request, article_id):
     config = GlobalConfig.objects.all()[0]
     categories = Category.objects.all()

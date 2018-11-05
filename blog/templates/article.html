@@ -45,6 +45,12 @@
                 浏览量:
                 <span class="views">{{ article.views }}</span>
             </li>
+            <li>
+                喜欢:
+                <a href="#" onclick="like(this, {{ article.id }})">
+                    <span class="likes">{{ article.likes }}</span>
+                </a>
+            </li>
         </ul>
      </div>
 
@@ -107,5 +113,23 @@
         </ul>
     </div>
 </div>
+
+<script type="text/javascript">
+    function like(obj, id){
+        $.ajax({
+            type:"POST",
+            data: { csrfmiddlewaretoken:"{{ csrf_token }}" },
+            url: "/blog/likearticle/" + id + "/", 
+            cache: false,
+            dataType: "json",
+            success: function(data){
+                $(obj).children(".likes").html(data);
+            },
+            error: function(data){
+                window.alert("文章点赞失败");
+            }
+        });
+    }
+</script>
 
 {% endblock %}

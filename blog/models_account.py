@@ -27,8 +27,8 @@ class MyTech(models.Model):
     """
 
     name = models.CharField("技能名称", max_length=20, null=False, blank=False)
-    proficiency = models.IntegerField("熟练程度", max_length=2, default=5)
-    nice_count = models.IntegerField("点赞数", max_length=10, default=0)
+    proficiency = models.IntegerField("熟练程度", default=5)
+    nice_count = models.IntegerField("点赞数", default=0)
 
     class Meta:
         verbose_name = "技能"
