@@ -76,7 +76,7 @@ class Comment(models.Model):
     class Meta:
         db_table = 'blog_comment'
         managed = True
-        verbose_name = '评论'
-        verbose_name_plural = '评论'
+        verbose_name = '文章评论'
+        verbose_name_plural = '文章评论'
 
 

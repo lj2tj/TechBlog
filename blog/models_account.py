@@ -50,5 +50,5 @@ class AccountComment(models.Model):
     class Meta:
         db_table = 'account_comment'
         managed = True
-        verbose_name = '评论'
-        verbose_name_plural = '评论'
+        verbose_name = '账号评论'
+        verbose_name_plural = '账号评论'

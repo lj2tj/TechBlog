@@ -44,7 +44,7 @@
     content: '*'; 
     color: #f00;
 }
-/**/
+/* 回复列表 */
 .comment-container .comments{
     padding-left:0px;
     font-size: 14px;
@@ -71,8 +71,7 @@
 
 .comment-container .comments .comments-text-box {
     display: block;
-    width: 90%;
-    float: left;
+    width: 100%;
 }
 
 .comment-container .comments .comments-text-box .comment-author {
@@ -80,7 +79,11 @@
     margin: 2px;
 }
 
-.comment-container .comments .comments-text-box p {
+.comment-container .comments .comments-text-box .comment-body {
+    float: left;
+}
+
+.comment-container .comments .comments-text-box .info {
     color: gray;
     float: right;
 }
