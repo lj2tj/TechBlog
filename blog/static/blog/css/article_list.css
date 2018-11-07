@@ -1,25 +1,23 @@
-.newblogs ul, li { list-style: none; }
-.newblogs a { text-decoration: none; color: #555 }
+.newblogs { background: #fff; overflow: hidden; width: 100%; clear: both; border-radius: 10px; margin: 20px 0; }
+.bloginfo .blogleft{
+    float: left;
+    width: 65%;
+}
 
-.newblogs { background: #fff; overflow: hidden; width: 100%; clear: both; border-radius: 10px; margin: 20px 0 }
-h3.blogtitle { line-height: 30px; margin: 10px 0; }
-h3.blogtitle:hover a { color: #000 }
-.newblogs ul { padding: 10px; overflow: hidden }
+.blogtitle { line-height: 24px; margin: 10px 0; }
+.newblogs ul { padding: 10px; overflow: hidden; }
 .newblogs li { border-bottom: #ccc 1px solid; margin-bottom: 10px; overflow: hidden; }
 
 .autor { width: 100%; overflow: hidden; clear: both; margin: 20px 0 0 0; display: inline-block; color: #838383; font-size: 12px }
 .autor span { margin: 0 10px 0 0; padding-left: 20px }
-.autor span a { color: #096; }
-.autor span a:hover { text-decoration: underline }
 
-.lm { background: url(../img/icon/newsbg01.png) no-repeat left center }
 .dtime { background: url(../img/icon/date.png) no-repeat left center }
 .viewnum { background: url(../img/icon/view.png) no-repeat left center }
 .pingl { background: url(../img/icon/like.jpg) no-repeat left center }
 
-.blogpic { overflow: hidden; width: 30%; max-height: 100px; display: block; float: left; margin-right: 20px; border-radius: 5px; }
+.blogpic { overflow: hidden; width: 30%; max-height: 100px; display: block; float: right; margin-right: 10px; border-radius: 5px; }
 .blogpic img { max-height: 100px; }
-.bloginfo div { color: #888; overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 3; padding-top: 10px; font-size: 14px; }
+.bloginfo div { color: #888; overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; -webkit-line-clamp: 3; padding-top: 10px; font-size: 14px; }
 
 .more { font-size: 14px; }
 

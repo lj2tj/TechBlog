@@ -2,7 +2,6 @@
 
 
 {% block links %}
-    {% load static %}
     {% load staticfiles %}
     <link rel="stylesheet" href="{% static 'blog/css/article_list.css' %}">
 {% endblock %}
@@ -12,20 +11,22 @@
     <ul>
     {% for article in articles %}
         <li>
-            <h3 class="blogtitle"><a href="{% url 'blog:article' article.id %}" target="_blank">{{ article.title }}</a></h3>
             <div class="bloginfo">
-                <span class="blogpic">
+                <div class="blogleft">
+                    <h4 class="blogtitle">
+                        <a href="{% url 'blog:article' article.id %}" target="_blank">{{ article.title }}</a>
+                    </h4>
+                    {{ article.body|truncatechars:100|striptags|safe }}
+                </div>
+                <div class="blogpic">
                     <a href="{% url 'blog:article' article.id %}" title="{{ article.title }}">
-                        <img src="/static/upload/{{ article.news_img }}" alt="{{ article.title }}" width="width: 40%; max-height: " />
+                        <img src="/media/{{ article.news_img }}" alt="{{ article.title }}" width="width: 40%; max-height: " />
                     </a>
-                </span>
-                <div>
-                    {{ article.body|truncatechars:100|safe }}
                 </div>
             </div>
             <div class="autor">
                <span class="dtime f_l">{{ article.created_time|date:"Y-n-j" }}</span>
-               <span class="viewnum f_l">浏览（<a href="">{{ article.views }}</a>）</span>
+               <span class="viewnum f_l">浏览（{{ article.views }}）</span>
                <span class="pingl f_l">喜欢（{{ article.likes }}）</span>
                <span class="f_r"><a href="{% url 'blog:article' article.id %}" class="more">阅读原文&gt;&gt;</a></span>
             </div>

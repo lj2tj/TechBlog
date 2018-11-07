@@ -19,11 +19,14 @@ class CategoryAdmin(admin.ModelAdmin):
 class ArticleAdmin(admin.ModelAdmin):
         list_display = ('title', 'category', 'status')
         ordering = ("status", "-created_time", "-likes")
+        search_fields = ("title",)
         list_per_page = 20
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
         list_display = ('article', 'user_name', 'user_email') 
+        search_fields = ("article__title",)
+        list_per_page = 20
 
 #User related
 @admin.register(UserProfile)

@@ -1,0 +1,66 @@
+.hot-posts{
+    background-color: #fff;
+    display: block;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.hot-posts .title {
+    line-height: 45px;
+    font-weight: 400;
+    color: #1abc9c;
+    font-size: 16px;
+    position: relative;
+    border-bottom: 1px solid #90bba8;
+    margin: 5px 20px;
+}
+
+.hot-posts ul {
+    margin: 0 20px 10px;
+    padding: 15px 0 10px;
+    list-style: none;
+    overflow: hidden;
+    display: block;
+}
+
+.hot-posts ul li {
+    overflow: hidden;
+    clear: both;
+    margin-bottom: 10px;
+    line-height: 20px;
+    display: list-item;
+    border-bottom: #81c1f2 dotted thin;
+}
+
+.hot-posts ul li:hover {
+    overflow: hidden;
+    clear: both;
+    margin-bottom: 10px;
+    line-height: 20px;
+    display: list-item;
+    border-bottom: #81c1f2 dotted thin;
+    background-color: azure;
+    font-weight: bolder;
+}
+
+.hot-posts ul li .label {
+    margin-right: 8px;
+    padding: 2px 7px;
+    top: -1px;
+    background-color: #81c1f2;
+    color: #fff;
+}
+
+.hot-posts ul li a{
+    color: #00a67c;
+    text-decoration: none;
+}
+
+.hot-posts ul li .likes::before {content:url(../img/icon/like.jpg)}
+.hot-posts ul li .likes {
+    float: right;
+}
+
+.hot-posts::after{
+    clear: both;
+}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'blog/css/index.css' %}">
+{% endblock %}
+
+{% block container %}
+
+<div class="hot-posts">
+    <h2 class="title">热门排行</h2>
+    <ul>
+        {% for article in hot_articles %}
+        <li>
+            <span class="label">{{forloop.counter}}</span>
+            <a href="{% url 'blog:article' article.id %}" title="{{ article.title }}">{{ article.title }}</a>
+            <span class="likes">{{ article.likes }} 喜欢</span>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

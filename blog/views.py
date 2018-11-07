@@ -11,12 +11,14 @@ from .models_website import GlobalConfig
 def index(request):
     config = GlobalConfig.objects.all()[0]
     categories = Category.objects.all()
+    hot_articles = Article.objects.filter(status='p').order_by("-likes", "-views", "created_time")[:5]
 
     context = {
         "config" : config,
-        "category_list" : categories
+        "category_list" : categories,
+        "hot_articles" : hot_articles
     }
-    return render(request, "base.html", context=context)
+    return render(request, "index.html", context=context)
 
 def category(request, category_id, page_index):
     # page size = 10
@@ -62,7 +64,7 @@ def article(request, article_id):
     config = GlobalConfig.objects.all()[0]
     categories = Category.objects.all()
 
-    articles = Article.objects.filter(id=article_id)
+    articles = Article.objects.filter(id=article_id, status='p')
 
     article = None
     comments = None
