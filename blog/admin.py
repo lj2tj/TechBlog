@@ -5,6 +5,9 @@ from .models_article import Category, Article, Comment
 from .models_website import GlobalConfig
 from .models_account import UserProfile, MyTech, AccountComment
 
+admin.site.site_header = "博客后台管理系统"
+admin.site.site_title = "博客后台管理系统"
+
 admin.site.register(GlobalConfig)
 
 #Article related
