@@ -127,18 +127,27 @@
         var user_name = $("#user_name").val().trim()
         if(user_name.length === 0){
             $("#user_name_error").show()
+            setTimeout(function(){
+                $("#user_name_error").hide("slow");
+            },1000);
             return false;
         }
         
         var user_email = $("#user_email").val().trim()
         if(user_email.length === 0){
             $("#user_email_error").show()
+            setTimeout(function(){
+                $("#user_email_error").hide("slow");
+            },1000);
             return false;
         }
 
         var comment = $("#comment_editor").html().trim()
         if(comment.length == 0){
             $("#comment_editor_error").show()
+            setTimeout(function(){
+                $("#comment_editor_error").hide("slow");
+            },1000);
             return false;
         }
 
