@@ -40,4 +40,10 @@ ul, ul li{
 	color:red;
 }
 
-/* icon */
+.hidden{
+    display: none;
+}
+
+.show{
+    display: inline;
+}

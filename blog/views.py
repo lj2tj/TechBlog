@@ -1,3 +1,6 @@
+import datetime
+import json
+
 from django.shortcuts import render, render_to_response
 from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.urls import reverse
@@ -5,6 +8,16 @@ from django.urls import reverse
 from .models_article import Category, Article, Comment
 from .models_account import UserProfile, MyTech, AccountComment
 from .models_website import GlobalConfig
+
+
+class CJsonEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, datetime.datetime):
+            return obj.strftime('%Y-%m-%d %H:%M:%S')
+        elif isinstance(obj, date):
+            return obj.strftime("%Y-%m-%d")
+        else:
+            return json.JSONEncoder.default(self, obj)
 
 # Create your views here.
 
@@ -148,12 +161,24 @@ def accountcomment(request, comment_to):
         return HttpResponse("-1")
     pass
 
+def get_children_comments(comment):
+    id = comment.id
+    children = AccountComment.objects.filter(comment_to=id).order_by("-created_time")
+    comment.children = children
+
+    for child in children:
+        get_children_comments(child)
+
 def about(request):
     config = GlobalConfig.objects.all()[0]
     categories = Category.objects.all()
     author = UserProfile.objects.all()[0]
     my_tech = MyTech.objects.all()
-    ac = AccountComment.objects.all().order_by("-id")
+    ac = AccountComment.objects.filter(comment_to=0).order_by("-created_time")
+    #.values("id", "user_name", "user_email", "body", "created_time", "comment_to")
+
+    for comment in ac:
+        get_children_comments(comment)
 
     context = {
         "config" : config,

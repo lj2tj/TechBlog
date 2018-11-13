@@ -60,29 +60,29 @@
             <tr>
                 <td class="required">姓名</td>
                 <td>
-                    <input type="text" id="user_name" name="user_name" value="{{ user_name }}">
-                    <div style="display:none; color:red;" id="user_name_error">请填写姓名</div>
+                    <input type="text" id="user_name_0" name="user_name" value="{{ user_name }}">
+                    <div style="display:none; color:red;" id="user_name_error_0">请填写姓名</div>
                 </td>
             </tr>
             <tr>
                 <td class="required">邮箱</td>
                 <td>
-                    <input type="text" id="user_email" name="user_email" value="{{ user_email }}" type="email">
-                    <div style="display:none; color:red;" id="user_email_error">请填写邮箱</div>
+                    <input type="text" id="user_email_0" name="user_email" value="{{ user_email }}" type="email">
+                    <div style="display:none; color:red;" id="user_email_error_0">请填写邮箱</div>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <div id="comment_editor" class="comment-editor" contenteditable="true">
+                    <div id="comment_editor_0" class="comment-editor" contenteditable="true">
                         {{ comment_editor|safe }}
                     </div>
-                    <div style="display:none; color:red;" id="comment_editor_error">请填写留言</div>
+                    <div style="display:none; color:red;" id="comment_editor_error_0">请填写留言</div>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <a href="javascript:void(0)" id="comment_submit" class="ui-btn ui-btn-inline ui-corner-all" onclick="comment()">
-                        <span>发 表</span>
+                    <a href="javascript:void(0)" class="ui-btn ui-btn-inline ui-corner-all" onclick="comment(this, 0)">
+                        <span>回 复</span>
                     </a>
                 </td>
             </tr>
@@ -96,7 +96,53 @@
                     <div class="comments-text-box">
                         <h3 class="comment-author">{{ comment.user_name }}</h3>
                         <div class="comment-body">{{ comment.body|safe }}</div>
-                        <p class="info">{{ comment.created_time }}</p>
+                        <p class="info">{{ comment.created_time }} &nbsp;&nbsp;
+                            <a href="javascript:void(0)" onclick="reply(this, {{ comment.id }})">
+                                <span>回 复</span>
+                            </a>
+                        </p>
+                    </div>
+                    <div id="child_comments_{{ comment.id }}" class="child-comments">
+                        {% for child in comment.children %}
+                        <div class="child-comment">
+                            <span class="child-name">{{ child.user_name }}:</span>
+                            <span class="child-comment">{{ child.body|striptags }}</span>
+                            <span class="child-date">{{ child.created_time }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="editor-container hidden" id="reply-{{ comment.id }}">
+                        <table style="width:80%;">
+                            <tr>
+                                <td class="required">姓名</td>
+                                <td>
+                                    <input type="text" id="user_name_{{ comment.id }}" name="user_name" value="{{ user_name }}">
+                                    <div style="display:none; color:red;" id="user_name_error_{{ comment.id }}">请填写姓名</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="required">邮箱</td>
+                                <td>
+                                    <input type="text" id="user_email_{{ comment.id }}" name="user_email" value="{{ user_email }}" type="email">
+                                    <div style="display:none; color:red;" id="user_email_error_{{ comment.id }}">请填写邮箱</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <div id="comment_editor_{{ comment.id }}" class="comment-editor" contenteditable="true">
+                                        {{ comment_editor|safe }}
+                                    </div>
+                                    <div style="display:none; color:red;" id="comment_editor_error_{{ comment.id }}">请填写留言</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <a href="javascript:void(0)" onclick="comment(this, {{ comment.id }})">
+                                        <span>回 复</span>
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </li>
@@ -123,30 +169,40 @@
 </script>
 
 <script type="text/javascript">
-    function comment(){
-        var user_name = $("#user_name").val().trim()
+    function reply(obj, id){
+        if($("#reply-"+id).hasClass("hidden")){
+            $("#reply-"+id).removeClass("hidden")
+            $(obj).children("span").text("隐 藏")
+        }else{
+            $("#reply-"+id).addClass("hidden")
+            $(obj).children("span").text("回 复")
+        }
+    }
+
+    function comment(obj, id){
+        var user_name = $("#user_name_"+id).val().trim()
         if(user_name.length === 0){
-            $("#user_name_error").show()
+            $("#user_name_error_"+id).show()
             setTimeout(function(){
-                $("#user_name_error").hide("slow");
+                $("#user_name_error_"+id).hide("slow");
             },1000);
             return false;
         }
         
-        var user_email = $("#user_email").val().trim()
+        var user_email = $("#user_email_"+id).val().trim()
         if(user_email.length === 0){
-            $("#user_email_error").show()
+            $("#user_email_error_"+id).show()
             setTimeout(function(){
-                $("#user_email_error").hide("slow");
+                $("#user_email_error_"+id).hide("slow");
             },1000);
             return false;
         }
 
-        var comment = $("#comment_editor").html().trim()
+        var comment = $("#comment_editor_"+id).html().trim()
         if(comment.length == 0){
-            $("#comment_editor_error").show()
+            $("#comment_editor_error_"+id).show()
             setTimeout(function(){
-                $("#comment_editor_error").hide("slow");
+                $("#comment_editor_error_"+id).hide("slow");
             },1000);
             return false;
         }
@@ -159,26 +215,35 @@
                 "user_email": user_email,
                 "comment": comment
             },
-            url: "/blog/accountcomment/0/", 
+            url: "/blog/accountcomment/"+id+"/", 
             cache: false,
             dataType: "json",
             success: function(data){
-                $(".comments").prepend("<li class=\"clearfix\"></li>")
-                $(".comments li:first").prepend("<div class=\"comments-text-wrap\"></div>")
+                $("#reply-"+id).addClass("hidden")
+                if (id != 0){
+                    //回复其它人的信息
+                    var reply = $("#child_comments_" + id)
+                    reply.prepend('<div><span class="child-name">'+user_name+':</span> \
+                        <span class="child-comment">'+comment+'</span> \
+                        <span class="child-date">' + (new Date()).toLocaleString() + '</span></div>')
+                }else{
+                    //直接回复
+                    $(".comments").prepend("<li class=\"clearfix\"></li>")
+                    $(".comments li:first").prepend("<div class=\"comments-text-wrap\"></div>")
+                    
+                    var text = "<div class=\"user-img\"><img src=\"/static/blog/img/mprofile.jpg\" width=\"50\" height=\"50\"></div>"
+                    $(".comments li:first .comments-text-wrap").prepend(text)
 
-                
-                var text = "<div class=\"user-img\"><img src=\"/static/blog/img/mprofile.jpg\" width=\"50\" height=\"50\"></div>"
-                $(".comments li:first .comments-text-wrap").prepend(text)
+                    text = '<div class="comments-text-box"></div><div id="child_comments_'+data+'" class="child-comments">'
+                    $(".comments li:first .comments-text-wrap").append(text)
 
-                text = '<div class="comments-text-box"></div>'
-                $(".comments li:first .comments-text-wrap").append(text)
-
-                text = '<h3 class="comment-author">' + user_name + '</h3>'
-                $(".comments li:first .comments-text-wrap .comments-text-box").append(text)
-                text = '<div class="comment-body">' + comment + '</div>'
-                $(".comments li:first .comments-text-wrap .comments-text-box").append(text)
-                text = '<p class="info">' + (new Date()).toLocaleString() + '</p>'
-                $(".comments li:first .comments-text-wrap .comments-text-box").append(text)
+                    text = '<h3 class="comment-author">' + user_name + '</h3>'
+                    $(".comments li:first .comments-text-wrap .comments-text-box").append(text)
+                    text = '<div class="comment-body">' + comment + '</div>'
+                    $(".comments li:first .comments-text-wrap .comments-text-box").append(text)
+                    text = '<p class="info">' + (new Date()).toLocaleString() + '</p>'
+                    $(".comments li:first .comments-text-wrap .comments-text-box").append(text)
+                }
             },
             error: function(data){
                 window.alert("支持作者失败" + data.error);

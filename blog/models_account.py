@@ -42,7 +42,7 @@ class AccountComment(models.Model):
     user_email = models.EmailField('评论者邮箱', max_length=100, null=False)
     body = HTMLField('评论内容', max_length=500)
     created_time = models.DateTimeField('评论发表时间', auto_now_add=True)
-    comment_to = models.IntegerField('MyComment', default="-1")
+    comment_to = models.IntegerField('回复对象ID', default="0")
 
     def __str__(self):
         return self.body[:20]

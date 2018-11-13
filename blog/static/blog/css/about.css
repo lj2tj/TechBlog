@@ -208,3 +208,24 @@
     border:  #4398ed solid thin;
     min-height: 10rem;
 }
+
+/* 子回复 */
+.child-comments{
+    margin-left: 50%;
+    width: 50%;
+    float: left;
+    background-color: #ededed;
+}
+
+.child-comments .child-comment{
+    padding: 5px;
+}
+
+.child-name{
+    color: #0088db;
+}
+
+.child-date{
+    color: #ccc;
+    float: right;
+}

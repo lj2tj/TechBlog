@@ -39,5 +39,5 @@ class MyTechAdmin(admin.ModelAdmin):
 
 @admin.register(AccountComment)
 class ACAdmin(admin.ModelAdmin):
-        list_display = ('user_name', 'user_email')
+        list_display = ('user_name', 'user_email', 'comment_to')
         list_per_page = 20
