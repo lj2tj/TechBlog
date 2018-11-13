@@ -16,13 +16,13 @@
                     <h4 class="blogtitle">
                         <a href="{% url 'blog:article' article.id %}" target="_blank">{{ article.title }}</a>
                     </h4>
-                    {{ article.body|truncatechars:100|striptags|safe }}
+                    <p>{{ article.body|truncatechars:100|striptags|safe }}</p>
                 </div>
-                <div class="blogpic">
-                    <a href="{% url 'blog:article' article.id %}" title="{{ article.title }}">
-                        <img src="/media/{{ article.news_img }}" alt="{{ article.title }}" width="width: 40%; max-height: " />
-                    </a>
-                </div>
+            </div>
+            <div class="blogpic">
+                <a href="{% url 'blog:article' article.id %}" title="{{ article.title }}">
+                    <img src="/media/{{ article.news_img }}" alt="{{ article.title }}" width="width: 40%; max-height: " />
+                </a>
             </div>
             <div class="autor">
                <span class="dtime f_l">{{ article.created_time|date:"Y-n-j" }}</span>
