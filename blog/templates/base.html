@@ -32,7 +32,7 @@
                 <li class=""><a href="{% url 'blog:index' %}" style="opacity: 0.4;">首页</a></li>
                 {% for category in category_list %}
                 <li class="">
-                    <a href="{% url 'blog:category' category.id 0 %}" style="opacity: 0.4;">{{ category.name }}</a>
+                    <a href="{% url 'blog:category' category.id 1 %}" style="opacity: 0.4;">{{ category.name }}</a>
                 </li>
                 {% endfor %}
                 <li class=""><a href="{% url 'blog:about' %}" style="opacity: 0.4;">介绍</a></li>

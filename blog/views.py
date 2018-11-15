@@ -32,7 +32,7 @@ def category(request, category_id, page_index):
     config = GlobalConfig.objects.all()[0]
     categories = Category.objects.all()
 
-    all_articles = Article.objects.filter(status='p', category_id=category_id)
+    all_articles = Article.objects.filter(status='p', category_id=category_id).order_by("created_time")
     paginator = Paginator(all_articles, 5)
 
     articles = paginator.get_page(page_index)
