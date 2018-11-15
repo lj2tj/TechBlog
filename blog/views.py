@@ -175,7 +175,6 @@ def about(request):
     author = UserProfile.objects.all()[0]
     my_tech = MyTech.objects.all()
     ac = AccountComment.objects.filter(comment_to=0).order_by("-created_time")
-    #.values("id", "user_name", "user_email", "body", "created_time", "comment_to")
 
     for comment in ac:
         get_children_comments(comment)
