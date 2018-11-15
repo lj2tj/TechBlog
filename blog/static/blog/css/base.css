@@ -47,3 +47,8 @@ ul, ul li{
 .show{
     display: inline;
 }
+
+/* 分页 */
+.pagination {
+    float: right;
+}

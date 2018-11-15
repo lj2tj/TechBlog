@@ -4,20 +4,12 @@ import json
 from django.shortcuts import render, render_to_response
 from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.urls import reverse
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 from .models_article import Category, Article, Comment
 from .models_account import UserProfile, MyTech, AccountComment
 from .models_website import GlobalConfig
 
-
-class CJsonEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, datetime.datetime):
-            return obj.strftime('%Y-%m-%d %H:%M:%S')
-        elif isinstance(obj, date):
-            return obj.strftime("%Y-%m-%d")
-        else:
-            return json.JSONEncoder.default(self, obj)
 
 # Create your views here.
 
@@ -40,23 +32,16 @@ def category(request, category_id, page_index):
     config = GlobalConfig.objects.all()[0]
     categories = Category.objects.all()
 
-    
     all_articles = Article.objects.filter(status='p', category_id=category_id)
+    paginator = Paginator(all_articles, 5)
 
-    articles = None
-    if page_index < 0:
-        articles = all_articles[:page_size]
-    elif page_index > (len(all_articles) // page_size):
-        articles = all_articles[-10:-1]
-    else:
-        start = page_index * page_size
-        articles = all_articles[start:(start+10)]
+    articles = paginator.get_page(page_index)
     
-
     context = {
         "config" : config,
         "category_list" : categories,
-        "articles" : articles
+        "articles" : articles,
+        "category":category_id
     }
     return render(request, "category.html", context=context)
 
