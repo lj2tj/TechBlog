@@ -36,12 +36,23 @@ def category(request, category_id, page_index):
     paginator = Paginator(all_articles, page_size)
 
     articles = paginator.get_page(page_index)
+
+    displayed_pages = []
+    min = 0
+    max = articles.paginator.num_pages
+    if articles.number - 5 > 0:
+        min = articles.number - 5
+    
+    if articles.paginator.num_pages - articles.number > 4:
+        max = articles.number + 4
+    displayed_pages = list(articles.paginator.page_range)[min:max]
     
     context = {
         "config" : config,
         "category_list" : categories,
         "articles" : articles,
-        "active_category":category_id
+        "active_category" : category_id,
+        "displayed_pages" : displayed_pages
     }
     return render(request, "category.html", context=context)
 

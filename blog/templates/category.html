@@ -43,13 +43,14 @@
                 <li class="disabled"><a href="javascript:void(0)" disabled="disabled">上一页</a></li>
             {% endif %}
 
-            {% if articles.has_previous %}
-                <li><a href="{% url 'blog:category' active_category articles.previous_page_number %}">{{articles.previous_page_number}}</a></li>
-            {% endif %}
-                <li class="active"><a href="{% url 'blog:category' active_category articles.number %}">{{articles.number}}</a></li>
-            {% if articles.has_next %}
-                <li><a href="{% url 'blog:category' active_category articles.next_page_number %}">{{articles.next_page_number}}</a></li>
-            {% endif %}
+            {% for num in displayed_pages %}
+                {% if num == articles.number %}
+                    <li class="active"><a href="{% url 'blog:category' active_category num %}">{{num}}</a></li>
+                {% else %}
+                    <li><a href="{% url 'blog:category' active_category num %}">{{num}}</a></li>
+                {% endif %}
+            {% endfor %}
+            
 
             {% if articles.has_next %}
                 <li><a href="{% url 'blog:category' active_category articles.next_page_number %}">下一页</a></li>
