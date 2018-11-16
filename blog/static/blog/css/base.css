@@ -49,6 +49,16 @@ ul, ul li{
 }
 
 /* 分页 */
-.pagination {
+.blog-pagination {
     float: right;
+}
+.blog-pagination li {
+    width: 0px;
+    height: 0px;
+    border: none;
+}
+
+.blog-pagination li.active a {
+    background-color:#337ab7;
+    color: white;
 }

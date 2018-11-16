@@ -21,19 +21,19 @@ def index(request):
     context = {
         "config" : config,
         "category_list" : categories,
-        "hot_articles" : hot_articles
+        "hot_articles" : hot_articles,
+        "active_category":"_1"
     }
     return render(request, "index.html", context=context)
 
 def category(request, category_id, page_index):
-    # page size = 10
-    page_size = 10
+    page_size = 5
 
     config = GlobalConfig.objects.all()[0]
     categories = Category.objects.all()
 
     all_articles = Article.objects.filter(status='p', category_id=category_id).order_by("created_time")
-    paginator = Paginator(all_articles, 5)
+    paginator = Paginator(all_articles, page_size)
 
     articles = paginator.get_page(page_index)
     
@@ -41,7 +41,7 @@ def category(request, category_id, page_index):
         "config" : config,
         "category_list" : categories,
         "articles" : articles,
-        "category":category_id
+        "active_category":category_id
     }
     return render(request, "category.html", context=context)
 
@@ -169,7 +169,8 @@ def about(request):
         "category_list" : categories,
         "author" : author,
         "my_tech" : my_tech,
-        "comments" : ac
+        "comments" : ac,
+        "active_category":"999"
     }
 
     return render(request, "about.html", context=context)

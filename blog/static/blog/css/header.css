@@ -48,10 +48,18 @@
     padding: 7px 15px;
 }
 
-.header .topnav .active {
+.header .topnav li.active {
     border-bottom: 4px solid transparent;
     border-bottom-color: orange;
 
     -webkit-transition: all .35s ease-in-out;
     transition: all .35s ease-in-out;
+}
+
+.header .topnav li.active a {
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 7px 15px;
 }

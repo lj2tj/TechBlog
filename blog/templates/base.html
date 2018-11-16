@@ -19,23 +19,17 @@
 </head>
 
 <body>
-    <div id="globalMessage" class="alert alert-warning" style="display: none; z-index: 9999; top:10px;">
-        <a href="#" class="close" onclick="closeGlobalMessage()">
-            &times;
-        </a>
-        <strong>警告！</strong><span id="message" />
-    </div>
     <div id="header" class="header">
         <h1>{{ config.website_title }}</h1>
         <nav class="topnav">
             <ul>
-                <li class=""><a href="{% url 'blog:index' %}" style="opacity: 0.4;">首页</a></li>
+                <li id="category__1" class=""><a href="{% url 'blog:index' %}" style="opacity: 0.4;">首页</a></li>
                 {% for category in category_list %}
-                <li class="">
+                <li id="category_{{ category.id }}" class="">
                     <a href="{% url 'blog:category' category.id 1 %}" style="opacity: 0.4;">{{ category.name }}</a>
                 </li>
                 {% endfor %}
-                <li class=""><a href="{% url 'blog:about' %}" style="opacity: 0.4;">介绍</a></li>
+                <li id="category_999" class=""><a href="{% url 'blog:about' %}" style="opacity: 0.4;">介绍</a></li>
             </ul>
         </nav>
     </div>
@@ -64,34 +58,28 @@
         "use strict";
         
         (function () {
-        
             var target = document.querySelector(".navtarget");
             var links = document.querySelectorAll(".topnav a");
             var color = "orange";
-        
             function mouseenterFunc() {
-                if (!this.parentNode.classList.contains("active")) {
-                        for (var i = 0; i < links.length; i++) {
-                            if (links[i].parentNode.classList.contains("active")) {
-                                links[i].parentNode.classList.remove("active");
-                            }
-                            links[i].style.opacity = "0.4";
-                        }
-            
-                    this.parentNode.classList.add("active");
-                    this.style.opacity = "1";
-                }
-            }
-            
-            function getActiveLinkIndex(){
                 for (var i = 0; i < links.length; i++) {
                     if (links[i].parentNode.classList.contains("active")) {
-                        window.localStorage.setItem("active_link_index", i);
+                        links[i].parentNode.classList.remove("active");
                     }
+                    links[i].style.opacity = "0.4";
                 }
+    
+                this.parentNode.classList.add("active");
+                this.style.opacity = "1";
+            }
+            
+            function clickLinkIndex(){
+                window.localStorage.setItem("active_link_index", this.parentNode.id);
+                setActiveLink();
             }
 
             function setActiveLink(){
+                
                 for (var i = 0; i < links.length; i++) {
                     if (links[i].parentNode.classList.contains("active")) {
                         links[i].parentNode.classList.remove("active");
@@ -100,22 +88,26 @@
                 }
                 
                 if(!window.localStorage["active_link_index"]){
-                    window.localStorage.setItem("active_link_index", 0);
+                    window.localStorage.setItem("active_link_index", "category__1");
                 }
-                var link = links[window.localStorage["active_link_index"]];
-                link.parentNode.classList.add("active");
-                link.style.opacity = "1";
+
+                if(window.localStorage["active_link_index"] != "category_{{ active_category }}"){
+                    window.localStorage.setItem("active_link_index", "category_{{ active_category }}");
+                }
+
+                var current_link = document.getElementById(window.localStorage["active_link_index"]);
+                current_link.className = "active";
+                current_link.style.opacity = "1";
             }
 
             for (var i = 0; i < links.length; i++) {
                 links[i].addEventListener("mouseenter", mouseenterFunc);
                 links[i].addEventListener("mouseleave", setActiveLink);
-                links[i].addEventListener("click", getActiveLinkIndex);
+                links[i].addEventListener("click", clickLinkIndex);
             }
 
-            setActiveLink()
+            setActiveLink();
         })();
-
         (function () {
             var footer_container = document.querySelector("#footer");
             var footer = document.querySelector("#footer > ul");
