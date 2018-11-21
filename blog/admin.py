@@ -17,7 +17,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-        list_display = ('title', 'category', 'status')
+        list_display = ('title', 'category', 'status', 'is_top')
         ordering = ("status", "-created_time", "-likes")
         search_fields = ("title",)
         list_per_page = 20

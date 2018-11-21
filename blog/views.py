@@ -16,7 +16,7 @@ from .models_website import GlobalConfig
 def index(request):
     config = GlobalConfig.objects.all()[0]
     categories = Category.objects.all()
-    hot_articles = Article.objects.filter(status='p').order_by("-likes", "created_time")[:5]
+    hot_articles = Article.objects.filter(status='p', is_top=True).order_by("-top_level", "-likes", "created_time")[:5]
 
     context = {
         "config" : config,

@@ -47,6 +47,8 @@ class Article(models.Model):
     news_img = models.ImageField('文章展示图片', null=True, blank=True, upload_to="Article/Img/")
     attachment_id = models.FileField('附件', null=True, blank=True, upload_to="Article/File/")
     download_times = models.PositiveIntegerField('下载次数', default=0, editable=False)
+    is_top = models.BooleanField("是否优先展示", default=False)
+    top_level = models.PositiveIntegerField("优先级级别", default=0)
 
 
     def __str__(self):

@@ -58,21 +58,19 @@
     <div class="editor-container">
         <table style="width:100%;">
             <tr>
-                <td class="required">姓名</td>
-                <td>
+                <td class="required">姓名:
                     <input type="text" id="user_name_0" name="user_name" value="{{ user_name }}">
                     <div style="display:none; color:red;" id="user_name_error_0">请填写姓名</div>
                 </td>
             </tr>
             <tr>
-                <td class="required">邮箱</td>
-                <td>
+                <td class="required">邮箱:
                     <input type="text" id="user_email_0" name="user_email" value="{{ user_email }}" type="email">
                     <div style="display:none; color:red;" id="user_email_error_0">请填写邮箱</div>
                 </td>
             </tr>
             <tr>
-                <td colspan="2">
+                <td>
                     <div id="comment_editor_0" class="comment-editor" contenteditable="true">
                         {{ comment_editor|safe }}
                     </div>
@@ -80,8 +78,8 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="2">
-                    <a href="javascript:void(0)" class="ui-btn ui-btn-inline ui-corner-all" onclick="comment(this, 0)">
+                <td>
+                    <a href="javascript:void(0)" class="ui-btn btn-sm btn-default" onclick="comment(this, 0)">
                         <span>回 复</span>
                     </a>
                 </td>
