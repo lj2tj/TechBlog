@@ -29,18 +29,19 @@
                     <a href="{% url 'blog:category' category.id 1 %}" style="opacity: 0.4;">{{ category.name }}</a>
                 </li>
                 {% endfor %}
-                <li id="category_999" class=""><a href="{% url 'blog:about' %}" style="opacity: 0.4;">介绍</a></li>
+                <li id="category_999" class=""><a href="{% url 'blog:about' 1 %}" style="opacity: 0.4;">介绍</a></li>
             </ul>
         </nav>
     </div>
     <div id="container" class="container">
         <div>
-            {% block container %}
-            {% endblock %}
+            {% block container %}{% endblock %}
             {% block sideblock %}{% endblock %}
         </div>
     </div>
     <div id="footer" class="footer">
+        <div class="glyphicon glyphicon-list">
+        </div>
         <ul>
             <li>
                 <p>Copyright：{{ config.copyright }}</p>
@@ -112,15 +113,15 @@
             var footer_container = document.querySelector("#footer");
             var footer = document.querySelector("#footer > ul");
 
-            function mouseenterFunc(){
+            footer_container.addEventListener("mouseenter", function (){
                 footer.style.display = "flex";
-            }
-            footer_container.addEventListener("mouseenter", mouseenterFunc);
-
-            function mouseleaveFunc(){
+                $("#footer > div").hide()
+            });
+            
+            footer.addEventListener("mouseleave", function (){
+                $("#footer > div").show()
                 footer.style.display = "none";
-            }
-            footer.addEventListener("mouseleave", mouseleaveFunc);
+            });
         })();
     </script>
     

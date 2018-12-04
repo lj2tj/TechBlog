@@ -3,20 +3,20 @@
 --------------------------*/
 
 .footer{
-	min-height: 20px;
+	max-height: 40px;
 	font-size:12px;
 	position: fixed;
-	left: 50%;
-	margin-left: -585px;
+	margin-top: 2px;
 	bottom: 5px;
-
-	z-index:-2;
-
 	background-color:#d1e1f5;
 	color:#ccc;
 	display: flex;
+	left: 50%;
+	margin-left: -585px;
 	justify-content: space-around;
+	z-index: 999;
 }
+
 
 @media (min-width: 450px) {
     .footer{
@@ -28,24 +28,23 @@
 
 .footer > ul{
 	width: 100%;
+	padding: 0;
 	display: none;
 	justify-content: space-around;
-	z-index: -1;
+	z-index: 999;
 }
 
 /* The four columns of links */
 
 .footer > ul > li{
     width:220px;
-    float: left;
 }
 
 /* Common styles for the four color bars */
 
-.footer p {
-	width: 200px;
-	margin-right: 20px;
-	padding: 9px 0px 9px 10px;
+.footer > ul > li > p {
+	width: 100%;
+	padding: 10px;
 	line-height: 18px;
 	background-color: #058cc7;
 	font-weight: bold;
@@ -54,11 +53,13 @@
 	text-transform: uppercase;
 	text-shadow: 0 1px rgba(0,0,0,0.1);
 	box-shadow: 0 0 3px rgba(0,0,0,0.3);
-	margin-bottom: 20px;
 	opacity:0.9;
 	cursor:default;
-
 	-webkit-transition: opacity 0.4s;
 	-moz-transition: opacity 0.4s;
 	transition: opacity 0.4s;
+}
+
+.footer > ul > li > p > a {
+	color: white;
 }

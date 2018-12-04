@@ -165,7 +165,7 @@ def get_children_comments(comment):
     for child in children:
         get_children_comments(child)
 
-def about(request):
+def about(request, comment_index):
     config = GlobalConfig.objects.all()[0]
     categories = Category.objects.all()
     author = UserProfile.objects.all()[0]
@@ -175,12 +175,26 @@ def about(request):
     for comment in ac:
         get_children_comments(comment)
 
+    page_size = 5
+    paginator = Paginator(ac, page_size)
+    comments = paginator.get_page(comment_index)
+
+    min = 0
+    max = comments.paginator.num_pages
+    if comments.number - 5 > 0:
+        min = comments.number - 5
+    
+    if comments.paginator.num_pages - comments.number > 4:
+        max = comments.number + 4
+    displayed_comments = list(comments.paginator.page_range)[min:max]
+
     context = {
         "config" : config,
         "category_list" : categories,
         "author" : author,
         "my_tech" : my_tech,
-        "comments" : ac,
+        "comments" : comments,
+        "displayed_comments" : displayed_comments,
         "active_category":"999"
     }
 

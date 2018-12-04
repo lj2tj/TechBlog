@@ -1,28 +1,24 @@
 html, body {
-    padding: 0 20px;
+    padding: 0;
     margin: 0;
     font-family: 'Microsoft Yahei', '微软雅黑', 'simsun', Arial, sans-serif;
-    background-color: #ededed;
+    background-color: #424242;
     z-index:0;
+    height:100%;
 }
 
 /*网页主体部分*/
 
 #container {
-    margin: 0 auto 5px auto;
-
-	background-color: rgb(19, 18, 18);
-
 	background-image:-webkit-radial-gradient(center, circle farthest-corner, #fff, #e2e2e2);
 	background-image:-moz-radial-gradient(center, circle farthest-corner, #fff, #e2e2e2);
 	background-image:radial-gradient(center, circle farthest-corner, #fff, #e2e2e2);
     box-shadow: 0 3px 3px rgba(0,0,0,0.2);
-    
+    min-height:80%;
     z-index:0;
 }
 
 #container > div {
-    min-height: 400px;
     margin-bottom: 20px;
 }
 
@@ -52,6 +48,7 @@ ul, ul li{
 .blog-pagination {
     float: right;
 }
+
 .blog-pagination li {
     width: 0px;
     height: 0px;

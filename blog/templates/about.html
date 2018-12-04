@@ -42,7 +42,7 @@
                 <span class="green" style="width: {{ tech.proficiency }}0%;">{{ tech.proficiency }}0%</span>
             </div>
             <div class="like">
-                <a href="#" onclick="likeTech(this, {{ tech.id }})">
+                <a href="javascript:void(0)" onclick="likeTech(this, {{ tech.id }})">
                     <span class="glyphicon glyphicon-thumbs-up"></span>
                     <span class="number">{{ tech.nice_count }}</span>
                 </a>
@@ -147,6 +147,33 @@
         {% endfor %}
     </ul>
 </div>
+    <div class="blog-pagination">
+        <ul class="pagination">
+            {% if comments.has_previous %}
+                <li><a href="{% url 'blog:about' 1 %}">首页</a></li> 
+                <li><a href="{% url 'blog:about' comments.previous_page_number %}">上一页</a></li>
+            {% else %}
+                <li class="disabled"><a href="javascript:void(0)" disabled="disabled">首页</a></li>
+                <li class="disabled"><a href="javascript:void(0)" disabled="disabled">上一页</a></li>
+            {% endif %}
+
+            {% for num in displayed_comments %}
+                {% if num == comments.number %}
+                    <li class="active"><a href="{% url 'blog:about' num %}">{{num}}</a></li>
+                {% else %}
+                    <li><a href="{% url 'blog:about' num %}">{{num}}</a></li>
+                {% endif %}
+            {% endfor %}
+            
+            {% if comments.has_next %}
+                <li><a href="{% url 'blog:about' comments.next_page_number %}">下一页</a></li>
+                <li><a href="{% url 'blog:about' comments.paginator.num_pages %}">尾页</a></li>
+            {% else %}
+                <li class="disabled"><a href="javascript:void(0)" disabled="disabled">下一页</a></li>
+                <li class="disabled"><a href="javascript:void(0)" disabled="disabled">尾页 </a></li>
+            {% endif %}
+        </ul>
+    </div>
     
 <script type="text/javascript">
     function likeTech(obj, id){
