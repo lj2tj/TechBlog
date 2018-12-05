@@ -83,6 +83,8 @@ def article(request, article_id):
         article.save()
 
         comments = Comment.objects.filter(article_id=article_id)
+        config.website_title = "%s - %s" % (article.title, config.website_title)
+        config.keywords = article.keywords
     else:
         return Http404()
 

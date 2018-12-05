@@ -2,7 +2,7 @@ html, body {
     padding: 0;
     margin: 0;
     font-family: 'Microsoft Yahei', '微软雅黑', 'simsun', Arial, sans-serif;
-    background-color: #424242;
+    background-color: #424242 !important; 
     z-index:0;
     height:100%;
 }
@@ -10,9 +10,7 @@ html, body {
 /*网页主体部分*/
 
 #container {
-	background-image:-webkit-radial-gradient(center, circle farthest-corner, #fff, #e2e2e2);
-	background-image:-moz-radial-gradient(center, circle farthest-corner, #fff, #e2e2e2);
-	background-image:radial-gradient(center, circle farthest-corner, #fff, #e2e2e2);
+	background-color:#e2e2e2;
     box-shadow: 0 3px 3px rgba(0,0,0,0.2);
     min-height:80%;
     z-index:0;

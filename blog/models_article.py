@@ -49,6 +49,8 @@ class Article(models.Model):
     download_times = models.PositiveIntegerField('下载次数', default=0, editable=False)
     is_top = models.BooleanField("是否优先展示", default=False)
     top_level = models.PositiveIntegerField("优先级级别", default=0)
+    keywords = models.CharField("文章关键字", max_length=50, null=True)
+    description = models.CharField("文章描述", max_length=150, null=True)
 
 
     def __str__(self):
