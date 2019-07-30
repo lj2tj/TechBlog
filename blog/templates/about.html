@@ -9,30 +9,30 @@
 
 <header class="pageheader">
     <h2 class="blog_head">个人简介</h2>
-</header>
 
-<div class="article_content">
-    <div style="width:38%; float: left; margin: 20px auto;">
-        <img src="/static/blog/img/profile.jpg" style="border-radius:50%;width:100px">
-        <p style="text-align: center;font-size:16px; margin-top:5px;">{{ author.user.last_name }}{{ author.user.first_name }}</p>
+    <div class="article_content">
+        <div style="width:38%; float: left; margin: 20px auto;">
+            <img src="/static/blog/img/profile.jpg" style="border-radius:50%;width:100px">
+            <p style="text-align: center;font-size:16px; margin-top:5px;">{{ author.user.last_name }}{{ author.user.first_name }}</p>
+        </div>
+        <div style="width: 60%; float: left; ">
+            <p class="self_evaluation">
+                {{ author.about|safe }}
+            </p>
+            <ul>
+                <li><span style="font-weight: bold;">QQ: </span>{{ author.qq }}</li>
+                <li><span style="font-weight: bold;">头条号: </span>{{ author.toutiao }}</li>
+                <li><span style="font-weight: bold;">github: </span><a target="_new" href="{{ author.github }}">{{ author.github }}</a></li>
+            </ul>
+        </div>
+        <div style="clear:both;"></div>
     </div>
-    <div style="width: 60%; float: left; ">
-        <p class="self_evaluation">
-            {{ author.about|safe }}
-        </p>
-        <ul>
-            <li><span style="font-weight: bold;">QQ: </span>{{ author.qq }}</li>
-            <li><span style="font-weight: bold;">头条号: </span>{{ author.toutiao }}</li>
-            <li><span style="font-weight: bold;">github: </span><a target="_new" href="{{ author.github }}">{{ author.github }}</a></li>
-        </ul>
-    </div>
-    <div style="clear:both;"></div>
-</div>
+</header>
 
 <div class="skill_tree">
     <h2 class="skill_tree_header">我的技能树</h2> 
 
-    <section class="tech">
+    <div class="tech">
         {% for tech in my_tech %}
         <div class="item">
             <div class="describe">
@@ -49,7 +49,7 @@
             </div>
         </div>
         {% endfor %}
-    </section>
+    </div>
 </div>
 
 <div class="comment_tree">
@@ -146,7 +146,6 @@
             </li>
         {% endfor %}
     </ul>
-</div>
     <div class="blog-pagination">
         <ul class="pagination">
             {% if comments.has_previous %}
@@ -174,7 +173,20 @@
             {% endif %}
         </ul>
     </div>
-    
+</div>
+
+<script type="text/javascript">
+    (function () {
+        var all_bar = document.getElementsByTagName("h2");
+        for(var i = 0; i < all_bar.length; i++){
+            //
+            all_bar[i].addEventListener("click", function (){
+                all_bar[i].style.color = "yellow";
+            });
+        }
+    })();
+</script>
+
 <script type="text/javascript">
     function likeTech(obj, id){
         $.ajax({

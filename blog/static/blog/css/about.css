@@ -3,20 +3,24 @@
     margin-top: 10px;
     padding: 5px;
     position: relative;
+    text-align: center;
+}
+
+.pageheader > .blog_head{
     background-color: #fff;
-    text-align: center;
+    line-height: 2em;
 }
 
-.article_content{
+.pageheader > .article_content{
     text-indent: 0px;
 }
 
-.article_content div{
+.pageheader > .article_content div{
     text-indent: 0px;
     text-align: center;
 }
 
-.article_content ul li{
+.pageheader > .article_content ul li{
     line-height: 28px;
     border-bottom: #9e9e9e thin dotted;
 }

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{% static 'blog/css/base.css' %}">
     <link rel="stylesheet" href="{% static 'blog/css/header.css' %}">
     <link rel="stylesheet" href="{% static 'blog/css/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/css/okayNav.min.css' %}" media="screen">
 
     <!-- 引入 jQuery Mobile 样式 -->
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
@@ -21,7 +22,7 @@
 <body>
     <div id="header" class="header">
         <h1>{{ config.website_display_header }}</h1>
-        <nav class="topnav">
+        <nav role="navigation" id="nav-main" class="topnav okayNav">
             <ul>
                 <li id="category__1" class=""><a href="{% url 'blog:index' %}" style="opacity: 0.4;">首页</a></li>
                 {% for category in category_list %}
@@ -54,6 +55,10 @@
             </li>
         </ul>
     </div>
+
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+    <script src="{% static 'blog/js/jquery.okayNav-min.js' %}"></script>
 
     <script>
         "use strict";
@@ -123,9 +128,13 @@
                 footer.style.display = "none";
             });
         })();
+
+        (function (){
+            //初始化菜单
+            if (window.screen.width < 700){
+                var navigation = $('#nav-main').okayNav();
+            }
+        })();
     </script>
-    
-    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script> 
 </body>
 </html>
