@@ -14,7 +14,7 @@
             <div class="bloginfo">
                 <div class="blogleft">
                     <h4 class="blogtitle">
-                        <a href="{% url 'blog:article' article.id %}" target="_blank">{{ article.title }}</a>
+                        <a href="{% url 'blog:article' article.id %}">{{ article.title }}</a>
                     </h4>
                     <div>{{ article.body|truncatechars:100|striptags }}</div>
                 </div>

@@ -102,8 +102,10 @@
                 }
 
                 var current_link = document.getElementById(window.localStorage["active_link_index"]);
-                current_link.className = "active";
-                current_link.style.opacity = "1";
+                if (current_link != null){
+                    current_link.className = "active";
+                    current_link.style.opacity = "1";
+                }
             }
 
             for (var i = 0; i < links.length; i++) {
@@ -132,7 +134,10 @@
         (function (){
             //初始化菜单
             if (window.screen.width < 700){
-                var navigation = $('#nav-main').okayNav();
+                console.log(window.screen.width)
+                var navigation = $('#nav-main').okayNav({
+                    swipe_enabled: false
+                });
             }
         })();
     </script>
