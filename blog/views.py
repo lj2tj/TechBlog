@@ -1,7 +1,7 @@
 import datetime
 import json
 
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
 from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
@@ -12,14 +12,17 @@ from .models_website import GlobalConfig
 
 
 # Create your views here.
+def global_params(request):
+    """全局变量，自动填充到全部视图中"""
+    config = GlobalConfig.objects.all()[0]
+
+    return {"config" : config}
 
 def index(request):
-    config = GlobalConfig.objects.all()[0]
     categories = Category.objects.all()
     hot_articles = Article.objects.filter(status='p', is_top=True).order_by("-top_level", "-likes", "created_time")[:5]
 
     context = {
-        "config" : config,
         "category_list" : categories,
         "hot_articles" : hot_articles,
         "active_category":"_1"
@@ -29,7 +32,6 @@ def index(request):
 def category(request, category_id, page_index):
     page_size = 5
 
-    config = GlobalConfig.objects.all()[0]
     categories = Category.objects.all()
 
     all_articles = Article.objects.filter(status='p', category_id=category_id).order_by("created_time")
@@ -48,7 +50,6 @@ def category(request, category_id, page_index):
     displayed_pages = list(articles.paginator.page_range)[min:max]
     
     context = {
-        "config" : config,
         "category_list" : categories,
         "articles" : articles,
         "active_category" : category_id,
@@ -168,7 +169,6 @@ def get_children_comments(comment):
         get_children_comments(child)
 
 def about(request, comment_index):
-    config = GlobalConfig.objects.all()[0]
     categories = Category.objects.all()
     author = UserProfile.objects.all()[0]
     my_tech = MyTech.objects.all()
@@ -191,7 +191,6 @@ def about(request, comment_index):
     displayed_comments = list(comments.paginator.page_range)[min:max]
 
     context = {
-        "config" : config,
         "category_list" : categories,
         "author" : author,
         "my_tech" : my_tech,

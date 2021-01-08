@@ -10,6 +10,7 @@ class GlobalConfig(models.Model):
     copyright = models.CharField("网站版权", max_length=10)
     address = models.CharField("地址", max_length=30)
     icp = models.CharField("ICP认证", max_length=20)
+    icp_address = models.CharField("ICP认证网址", max_length=200, default="https://beian.miit.gov.cn/")
     keywords = models.CharField("网站关键字", max_length=100, null=True)
 
 

@@ -2,7 +2,7 @@
 
 
 {% block links %}
-    {% load staticfiles %}
+    {% load static %}
     <link rel="stylesheet" href="{% static 'blog/css/article_list.css' %}">
 {% endblock %}
 
@@ -60,5 +60,6 @@
                 <li class="disabled"><a href="javascript:void(0)" disabled="disabled">尾页 </a></li>
             {% endif %}
         </ul>
+    </div>
 </div>
 {% endblock %}

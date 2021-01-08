@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load staticfiles %}
+{% load static %}
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -12,9 +12,6 @@
     <link rel="stylesheet" href="{% static 'blog/css/header.css' %}">
     <link rel="stylesheet" href="{% static 'blog/css/footer.css' %}">
     <link rel="stylesheet" href="{% static 'blog/css/okayNav.min.css' %}" media="screen">
-
-    <!-- 引入 jQuery Mobile 样式 -->
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     {% block links %}{% endblock %}
 </head>
@@ -41,8 +38,6 @@
         </div>
     </div>
     <div id="footer" class="footer">
-        <div class="glyphicon glyphicon-list">
-        </div>
         <ul>
             <li>
                 <p>Copyright：{{ config.copyright }}</p>
@@ -51,7 +46,7 @@
                 <p>地址：{{ config.address }}</p>
             </li>
             <li>
-                <p>备案号：<a target="_blank" href="http://www.miitbeian.gov.cn/" rel="nofollow">{{ config.icp }}</a></p>
+                <p>备案号：<a target="_blank" href="{{ config.icp_address }}" rel="nofollow">{{ config.icp }}</a></p>
             </li>
         </ul>
     </div>
@@ -115,20 +110,6 @@
             }
 
             setActiveLink();
-        })();
-        (function () {
-            var footer_container = document.querySelector("#footer");
-            var footer = document.querySelector("#footer > ul");
-
-            footer_container.addEventListener("mouseenter", function (){
-                footer.style.display = "flex";
-                $("#footer > div").hide()
-            });
-            
-            footer.addEventListener("mouseleave", function (){
-                $("#footer > div").show()
-                footer.style.display = "none";
-            });
         })();
 
         (function (){

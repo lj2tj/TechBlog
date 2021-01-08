@@ -2,48 +2,40 @@
 	The .footer
 --------------------------*/
 
-.footer{
-	max-height: 40px;
-	font-size:12px;
-	position: fixed;
-	margin-top: 2px;
-	bottom: 5px;
-	background-color:#d1e1f5;
-	color:#ccc;
-	display: flex;
-	left: 50%;
-	margin-left: -585px;
-	justify-content: space-around;
-	z-index: 999;
-}
-
-
 @media (min-width: 450px) {
     .footer{
         width:1170px;
     }
 }
 
-/* Set a width to the outermost UL and center it */
+.footer{
+	max-height: 40px;
+	font-size:12px;
+	position: fixed;
+	background-color:#d1e1f5;
+	color:#ccc;
+	left: 50%;
+	margin-left: -585px;
+}
 
 .footer > ul{
 	width: 100%;
 	padding: 0;
-	display: none;
+	display: flex;
 	justify-content: space-around;
-	z-index: 999;
 }
 
 /* The four columns of links */
 
 .footer > ul > li{
-    width:220px;
+	width:220px;
+	display: inline;
 }
 
 /* Common styles for the four color bars */
 
 .footer > ul > li > p {
-	width: 100%;
+	width: 220px;
 	padding: 10px;
 	line-height: 18px;
 	background-color: #058cc7;
