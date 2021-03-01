@@ -129,8 +129,8 @@ MEDIA_URL = '/fileupload/'
 
 #Tiny-mce
 TINYMCE_DEFAULT_CONFIG = {
-    'plugins': "table,spellchecker,paste,searchreplace",
-    'theme': "advanced",
+    'plugins': "table,spellchecker,paste,searchreplace,code,image",
+    'theme': "silver",
     'cleanup_on_startup': True,
     'custom_undo_redo_levels': 10,
     'width':800,
